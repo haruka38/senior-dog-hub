@@ -134,3 +134,6 @@ Xのような投稿SNSにおいても悩みの共有やコメントなどが可�
 ## 自分の質問に回答があった時の通知機能
 - RailsのActionMailerを使用予定。
 - 将来的にはLINE通知も検討したい。
+
+# ■ 画面遷移図
+https://www.figma.com/design/fQdjsmfK8CsWu3wucSp1l8/senior-dog-hub?node-id=0-1&p=f&t=fgKGcSbNZC956VUn-0
