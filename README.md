@@ -137,3 +137,6 @@ Xのような投稿SNSにおいても悩みの共有やコメントなどが可�
 
 # ■ 画面遷移図
 https://www.figma.com/design/fQdjsmfK8CsWu3wucSp1l8/senior-dog-hub?node-id=0-1&p=f&t=fgKGcSbNZC956VUn-0
+
+## ■ ER図
+https://app.diagrams.net/#G1eODTu65fBRJO_wU6rfYkV8fnl-Y7-04R#%7B%22pageId%22%3A%22Ijg2eE2M2iz-0Qh16dF3%22%7D
