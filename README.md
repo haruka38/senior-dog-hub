@@ -140,3 +140,19 @@ https://www.figma.com/design/fQdjsmfK8CsWu3wucSp1l8/senior-dog-hub?node-id=0-1&p
 
 ## ■ ER図
 https://app.diagrams.net/#G1eODTu65fBRJO_wU6rfYkV8fnl-Y7-04R#%7B%22pageId%22%3A%22Ijg2eE2M2iz-0Qh16dF3%22%7D
+
+## ■ 使用カラー候補
+- ベースカラー: #FDFBF6 (アイボリー)
+- アクセントカラー: #A67B5B (ソフトブラウン)
+- サブカラー: #E9E1D4 (ライトベージュ)
+- 追加カラー候補: #C8D6AF (グリーン系 1)
+- 追加カラー候補: #C9D3B5 (グリーン系 2)
+
+## ■ 使用フォント候補
+日本語
+- Noto Sans JP
+- Zen Kaku Gothic New
+- Kosugi Maru
+英語
+- Roboto
+- Lato
