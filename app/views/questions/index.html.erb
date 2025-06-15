@@ -4,6 +4,8 @@
       <div class="justify-center items-center gap-y-8 p-5 m-5 bg-ivory text-brown">
         <p><%= question.nickname %></p>
         <p><%= question.age %>歳</p>
+        <p><%= question.breed&.name %></p>
+        <!-- &.で、question.breedがnilでない時のみnameを呼び出す -->
         <p><%= question.body %></p>
         <p><%= question.created_at %></p>
       </div>
