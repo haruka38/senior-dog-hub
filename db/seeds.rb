@@ -7,3 +7,11 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+10.times do |i|
+  Question.create!(
+    nickname: "匿名#{i+1}さん",
+    age: rand(7..17),
+    body: "シニア犬についての質問#{i+1}です。"
+  )
+end
