@@ -20,8 +20,12 @@
   </head>
 
   <body>
-    <%= render 'shared/header' %>
-    <main class="bg-beige px-5 pb-6">
+    <%# 今いるページがトップページではない時にヘッダーを表示する %>
+    <% unless current_page?(root_path) %>
+      <%= render 'shared/header' %>
+    <% end %>
+
+    <main class="bg-beige px-5 py-6">
       <%= yield %>
     </main>
     <%= render 'shared/footer' %>
