@@ -25,5 +25,5 @@ breeds =Breed.create!(
     body: "シニア犬についての質問#{i+1}です。",
     breed: breeds.sample
     # breedをランダムで割り当てる
-  )
+    
 end
