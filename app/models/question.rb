@@ -3,5 +3,6 @@ class Question < ApplicationRecord
   validates :nickname, length: { maximum: 32 }, allow_blank: true
   validates :age, numericality: { only_integer: true }, allow_blank: true
 
-  belongs_to :breed
+  belongs_to :breed, optional: true
+  # optional: trueでbreedを必須ではなくする
 end

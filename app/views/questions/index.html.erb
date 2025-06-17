@@ -1,5 +1,8 @@
 <div>
   <div>
+    <%= link_to '質問する' , new_question_path, class: "py-5 px-8 bg-ivory text-brown text-lg rounded-xl" %>
+  </div>
+  <div>
     <% @questions.each do |question| %>
       <div class="justify-center items-center gap-y-8 p-5 m-5 bg-ivory text-brown">
         <p><%= question.nickname %></p>
