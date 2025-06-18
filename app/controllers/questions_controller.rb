@@ -18,6 +18,11 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def show
+    @question = Question.find(params[:id])
+    # idの部分にはURL末尾のquestionの番号が入る
+  end
+
   private
 
   def question_params

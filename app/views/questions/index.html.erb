@@ -9,7 +9,7 @@
         <p><%= question.age %>歳</p>
         <p><%= question.breed&.name %></p>
         <!-- &.で、question.breedがnilでない時のみnameを呼び出す -->
-        <p><%= question.body %></p>
+        <p><%= link_to question.body, question_path(question)  %></p>
         <p><%= question.created_at %></p>
       </div>
     <% end %>
