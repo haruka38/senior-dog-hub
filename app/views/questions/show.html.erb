@@ -7,4 +7,6 @@
     <p><%= @question.body %></p>
     <p><%= @question.created_at %></p>
   </div>
+  <%= render 'question_answers/form', question_answer: @question_answer, question: @question %>
+  <%= render @question_answers %>
 </div>
