@@ -20,7 +20,9 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    # idの部分にはURL末尾のquestionの番号が入る
+    # idの部分にはURLのquestionの数字部分が入る
+    @question_answer = QuestionAnswer.new
+    @question_answers = @question.question_answers
   end
 
   private

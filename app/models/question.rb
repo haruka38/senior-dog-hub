@@ -5,4 +5,5 @@ class Question < ApplicationRecord
 
   belongs_to :breed, optional: true
   # optional: trueでbreedを必須ではなくする
+  has_many :question_answers, dependent: :destroy
 end

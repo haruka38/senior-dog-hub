@@ -13,5 +13,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "static_pages#top"
 
-  resources :questions, only: %i[index new create show]
+  resources :questions, only: %i[index new create show] do
+    resources :question_answers, only: %i[create edit destroy], shallow: true
+  end
 end
