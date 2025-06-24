@@ -12,12 +12,14 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        shirokuma: ['"Shirokuma"', 'sans-serif'],
       },
       colors: {
         'ivory': '#FDFBF6',
         'beige': '#E9E1D4',
         'brown': '#A67B5B',
-        'light-brown': '#BA9174'
+        'light-brown': '#BA9174',
+        'green': '#C8D6AF'
       },
     },
   },

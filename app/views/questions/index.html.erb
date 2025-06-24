@@ -1,16 +1,20 @@
 <div>
   <div>
-    <%= link_to '質問する' , new_question_path, class: "py-5 px-8 bg-ivory text-brown text-lg rounded-xl" %>
+    <%= link_to '質問する' , new_question_path, class: "py-8 px-12 bg-green text-light-brown text-2xl font-bold rounded-xl fixed bottom-8 right-8 shadow-lg z-50" %>
   </div>
   <div>
     <% @questions.each do |question| %>
       <div class="justify-center items-center gap-y-8 p-5 m-5 bg-ivory text-brown">
-        <p><%= question.nickname %></p>
-        <p><%= question.age %>歳</p>
-        <p><%= question.breed&.name %></p>
-        <!-- &.で、question.breedがnilでない時のみnameを呼び出す -->
-        <p><%= link_to question.body, question_path(question)  %></p>
-        <p><%= question.created_at %></p>
+        <div class="flex justify-between items-center">
+          <div class="flex gap-x-6">
+            <p><%= question.nickname %></p>
+            <p><%= question.age %>歳</p>
+            <p><%= question.breed&.name %></p>
+          </div>
+          <!-- &.で、question.breedがnilでない時のみnameを呼び出す -->
+          <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
+        </div>
+        <p class="mt-2"><%= link_to question.body, question_path(question)  %></p>
       </div>
     <% end %>
   </div>
