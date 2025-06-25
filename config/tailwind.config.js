@@ -12,7 +12,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        shirokuma: ['"Shirokuma"', 'sans-serif'],
+        shirokuma: ['Shirokuma', 'sans-serif'],
+        kaisei_decol: ['Kaisei+Decol', 'sans-serif'],
       },
       colors: {
         'ivory': '#FDFBF6',
