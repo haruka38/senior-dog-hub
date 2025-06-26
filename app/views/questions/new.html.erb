@@ -1,22 +1,24 @@
-<div>
+<div class="justify-center items-center gap-y-8 p-10 mx-32 mt-7 text-brown">
+  <h2 class="text-2xl font-bold mb-6">質問する</h2>
+
   <%= form_with model: @question do |f| %>
-    <div>
-      <%= f.label :body, "質問内容" %>
-      <%= f.text_field :body %>
+    <div class="mb-4">
+      <%= f.label :body, "質問内容", class: "block font-bold mb-1" %>
+      <%= f.text_area :body, placeholder: "例：最近歩くのがゆっくりです…", class: "w-full border rounded p-2" %>
     </div>
-    <div>
-      <%= f.label :nickname, "ニックネーム" %>
-      <%= f.text_field :nickname %>
+    <div class="mb-4">
+      <%= f.label :nickname, "ニックネーム", class: "block font-bold mb-1" %>
+      <%= f.text_field :nickname, placeholder: "未入力でもOK", class: "w-full border rounded p-2" %>
     </div>
-    <div>
-      <%= f.label :breed_id, "犬種" %>
-      <%= f.collection_select :breed_id, Breed.all, :id, :name, include_blank: true  %>
+    <div class="mb-4">
+      <%= f.label :breed_id, "犬種", class: "block font-bold mb-1" %>
+      <%= f.collection_select :breed_id, Breed.all, :id, :name, {include_blank: "未入力でもOK"}, class: "w-full border rounded p-2"  %>
       <!-- 選択肢した値を入れる, 選択肢の元となるデータ, 選択肢の値となる属性, 選択肢の表示名になる属性 -->
     </div>
-    <div>
-      <%= f.label :age, "年齢" %>
-      <%= f.number_field :age %>
+    <div class="mb-4">
+      <%= f.label :age, "年齢", class: "block font-bold mb-1" %>
+      <%= f.number_field :age, placeholder: "例：13(未入力でもOK)", class: "w-full border rounded p-2" %>
     </div>
-    <%= f.submit "質問する" ,class: "bg-brown text-ivory" %>
+    <%= f.submit "質問する" ,class: "bg-brown text-ivory font-bold py-3 px-6 rounded hover:opacity-90" %>
   <% end %>
 </div>

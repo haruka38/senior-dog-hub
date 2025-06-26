@@ -4,18 +4,19 @@
   </div>
   <div>
     <% @questions.each do |question| %>
-      <div class="justify-center items-center gap-y-8 p-10 m-8 bg-ivory text-brown">
-        <div class="flex justify-between items-center">
-          <div class="flex gap-x-6">
-            <p><%= question.nickname %></p>
-            <p><%= question.age %>歳</p>
-            <p><%= question.breed&.name %></p>
+      <%= link_to question_path(question), class: "block" do %>
+        <div class="justify-center items-center gap-y-8 p-10 mx-32 my-7 bg-ivory text-brown hover:bg-green transition">
+          <div class="flex justify-between items-center">
+            <div class="flex gap-x-6">
+              <p><%= question.nickname %></p>
+              <p><%= question.age %>歳</p>
+              <p><%= question.breed&.name %></p>
+            </div>
+            <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
           </div>
-          <!-- &.で、question.breedがnilでない時のみnameを呼び出す -->
-          <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
+          <p class="mt-2"><%= question.body %></p>
         </div>
-        <p class="mt-2"><%= link_to question.body, question_path(question)  %></p>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
