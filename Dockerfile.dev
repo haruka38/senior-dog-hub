@@ -24,3 +24,4 @@ RUN gem install bundler
 # Dockerfileが存在するディレクトリ内（コンテナの外。今回の場合はRailsのアプリがあるディレクトリ）
 # にあるすべてのファイルとサブディレクトリをコンテナ内の/myappにコピー
 COPY . /myapp
+

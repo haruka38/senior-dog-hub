@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_18_101318) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_28_001242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,6 +38,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_101318) do
     t.index ["breed_id"], name: "index_questions_on_breed_id"
   end
 
+  create_table "stamp_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "icon", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stamps", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "stamp_type_id", null: false
+    t.string "stampable_type", null: false
+    t.bigint "stampable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stamp_type_id"], name: "index_stamps_on_stamp_type_id"
+    t.index ["stampable_type", "stampable_id"], name: "index_stamps_on_stampable"
+    t.index ["user_id"], name: "index_stamps_on_user_id"
+  end
+
   add_foreign_key "question_answers", "questions"
   add_foreign_key "questions", "breeds"
+  add_foreign_key "stamps", "stamp_types"
 end

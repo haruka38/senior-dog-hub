@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "stamps_#{@stamp.stampable.id}" do %>
+  <%= render partial: "stamps/stamp_buttons", locals: { question: @stamp.stampable } %>
+<% end %>
