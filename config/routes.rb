@@ -15,5 +15,6 @@ Rails.application.routes.draw do
 
   resources :questions, only: %i[index new create show] do
     resources :question_answers, only: %i[create edit destroy], shallow: true
+    resources :stamps, only: %i[create destroy]
   end
 end

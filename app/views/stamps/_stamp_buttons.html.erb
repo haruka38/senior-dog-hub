@@ -1,0 +1,35 @@
+
+<!-- スタンプ表示ここから -->
+<div class="mt-4 flex gap-3">
+<% stamp_counts = question.stamps.group(:stamp_type_id).count %>
+  <% StampType.all.each do |stamp_type| %>
+    <% count = stamp_counts[stamp_type.id] || 0 %>
+    <% existing = question.stamps.find_by(stamp_type: stamp_type) %>
+
+    <% if existing %>
+      <%= form_with url: question_stamp_path(question, existing),
+                    method: :delete,
+                    local: false,
+                    class: "text-sm px-3 py-1 rounded border flex items-center gap-1 bg-yellow-200 text-yellow-800",
+                    data: { turbo: true } do %>
+        <button type="submit">
+          <%= count %> <i class="<%= stamp_type.icon %>"></i> <%= stamp_type.name %>
+        </button>
+      <% end %>
+    <% else %>
+      <%= form_with scope: :stamp,
+                    url: question_stamps_path(question),
+                    method: :post,
+                    format: :turbo_stream,
+                    data: { turbo: true, turbo_frame: "stamps_#{question.id}" },
+                    local: false,
+                    class: "inline" do |f| %>
+        <%= f.hidden_field :stamp_type_id, value: stamp_type.id %>
+        <button type="submit" class="text-sm px-3 py-1 rounded border flex items-center gap-1 bg-white text-gray-700 hover:bg-gray-100">
+          <%= count %> <i class="<%= stamp_type.icon %>"></i> <%= stamp_type.name %>
+        </button>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<!-- スタンプ表示ここまで -->
