@@ -10,8 +10,7 @@
       <%= form_with url: question_stamp_path(question, existing),
                     method: :delete,
                     local: false,
-                    class: "text-sm px-3 py-1 rounded border flex items-center gap-1 bg-yellow-200 text-yellow-800",
-                    data: { turbo: true } do %>
+                    class: "text-sm px-3 py-1 rounded border flex items-center gap-1 bg-yellow-200 text-yellow-800" do %>
         <button type="submit">
           <%= count %> <i class="<%= stamp_type.icon %>"></i> <%= stamp_type.name %>
         </button>
@@ -20,8 +19,6 @@
       <%= form_with scope: :stamp,
                     url: question_stamps_path(question),
                     method: :post,
-                    format: :turbo_stream,
-                    data: { turbo: true, turbo_frame: "stamps_#{question.id}" },
                     local: false,
                     class: "inline" do |f| %>
         <%= f.hidden_field :stamp_type_id, value: stamp_type.id %>
