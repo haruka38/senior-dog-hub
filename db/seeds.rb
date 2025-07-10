@@ -8,22 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-breeds =Breed.create!(
-    [
-      { name: "柴犬" },
-      { name: "トイプードル" },
-      { name: "スタンダードプードル" },
-      { name: "ラブラドール" },
-      { name: "ミックス" }
-    ]
-  )
+# 開発・本番共通
 
-10.times do |i|
-  Question.create!(
-    nickname: "匿名#{i+1}さん",
-    age: rand(7..17),
-    body: "シニア犬についての質問#{i+1}です。",
-    breed: breeds.sample
-    # breedをランダムで割り当てる
-  )
+load Rails.root.join("db/seeds/breeds.rb")
+
+if Rails.env.development?
+  load Rails.root.join("db/seeds/development.rb")
 end
