@@ -2,7 +2,11 @@ class StampsController < ApplicationController
   before_action :set_stampable
   def create
     @stamp = @stampable.stamps.build(stamp_params)
-    # @stamp.user = current_user if current_user
+    # if current_user
+    # @stamp.user = current_user
+    # else
+    @stamp.guest_id = cookies[:guest_id]
+    # end
 
     if @stamp.save
       respond_to do |format|
