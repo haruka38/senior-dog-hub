@@ -8,8 +8,10 @@
         <%= link_to question_path(question), class: "block" do %>
           <div class="flex justify-between items-center">
             <div class="flex gap-x-6">
-              <p><%= question.nickname %></p>
-              <p><%= question.age %>歳</p>
+              <!-- presence || 値があればそれを返し、なければ右側のものを返す -->
+              <p><%= question.nickname.presence|| "匿名さん" %></p>
+              <!-- 0に意味を持つならpresenceではなくnilがいいらしい -->
+              <p><%= question.age.nil? ? "" : "#{question.age}歳" %></p>
               <p><%= question.breed&.name %></p>
             </div>
             <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
