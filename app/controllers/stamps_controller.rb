@@ -30,7 +30,11 @@ class StampsController < ApplicationController
   private
 
   def set_stampable
-    @stampable = Question.find(params[:question_id])
+    if params[:question_id]
+      @stampable = Question.find(params[:question_id])
+    elsif params[:question_answer_id]
+      @stampable = QuestionAnswer.find(params[:question_answer_id])
+    end
     # 「どの投稿に対してスタンプを押すか」をセットする
   end
 

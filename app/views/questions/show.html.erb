@@ -10,7 +10,7 @@
   </div>
   <p class="mt-6"><%= @question.body %></p>
   <%= turbo_frame_tag "stamps_#{@question.id}" do %>
-    <%= render partial: "stamps/stamp_buttons", locals: { question: @question } %>
+    <%= render partial: "stamps/stamp_buttons", locals: { stampable: @question, stamp_types: @question_stamp_types } %>
   <% end %>
 </div>
 
