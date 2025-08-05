@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   root "static_pages#top"
 
   resources :questions, only: %i[index new create show] do
-    resources :question_answers, only: %i[create edit destroy], shallow: true
+    resources :question_answers, only: %i[create edit destroy], shallow: true do
+      resources :stamps, only: %i[create]
+    end
     resources :stamps, only: %i[create destroy]
   end
+  delete 'question_answers/:question_answer_id/stamps/:id', to: 'stamps#destroy', as: :question_answer_stamp
 end
+

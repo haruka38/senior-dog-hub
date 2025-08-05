@@ -1,14 +1,14 @@
 <div class="mt-4 flex gap-3">
-  <% stamp_counts = question.stamps.group(:stamp_type_id).count %>
-  <% user_stamp_ids = question.stamps.where(guest_id: cookies[:guest_id]).pluck(:stamp_type_id) %>
+  <% stamp_counts = stampable.stamps.group(:stamp_type_id).count %>
+  <% user_stamp_ids = stampable.stamps.where(guest_id: cookies[:guest_id]).pluck(:stamp_type_id) %>
 
-  <% StampType.all.each do |stamp_type| %>
+  <% stamp_types.each do |stamp_type| %>
     <% count = stamp_counts[stamp_type.id] || 0 %>
     <% user_pressed = user_stamp_ids.include?(stamp_type.id) %>
-    <% existing = question.stamps.find_by(stamp_type_id: stamp_type.id, guest_id: cookies[:guest_id]) %>
+    <% existing = stampable.stamps.find_by(stamp_type_id: stamp_type.id, guest_id: cookies[:guest_id]) %>
 
     <% if user_pressed && existing %>
-      <%= form_with url: question_stamp_path(question, existing),
+      <%= form_with url: polymorphic_path([stampable, existing]),
                     method: :delete,
                     local: false,
                     class: "text-sm px-3 py-1 rounded border flex items-center gap-1 bg-yellow-200 text-yellow-800" do %>
@@ -18,7 +18,7 @@
       <% end %>
     <% else %>
       <%= form_with scope: :stamp,
-                    url: question_stamps_path(question),
+                    url: polymorphic_path([stampable, :stamps]),
                     method: :post,
                     local: false,
                     class: "inline" do |f| %>
