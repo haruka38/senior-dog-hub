@@ -1,6 +1,6 @@
 module StampsHelper
-  QUESTION_STAMP_TYPE_IDS = [1, 2] # それ知りたい、わかる
-  ANSWER_STAMP_TYPE_IDS   = [3, 4] # 参考になる、いいね
+  QUESTION_STAMP_TYPE_IDS = [ 1, 2 ] # それ知りたい、わかる
+  ANSWER_STAMP_TYPE_IDS   = [ 3, 4 ] # 参考になる、いいね
 
 
   def stamp_types(stampable)

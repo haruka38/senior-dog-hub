@@ -19,6 +19,5 @@ Rails.application.routes.draw do
     end
     resources :stamps, only: %i[create destroy]
   end
-  delete 'question_answers/:question_answer_id/stamps/:id', to: 'stamps#destroy', as: :question_answer_stamp
+  delete "question_answers/:question_answer_id/stamps/:id", to: "stamps#destroy", as: :question_answer_stamp
 end
-
