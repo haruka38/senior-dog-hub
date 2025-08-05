@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   include StampsHelper
-  
+
   before_action :set_question_stamp_types
   before_action :set_answer_stamp_types
 
@@ -28,7 +28,6 @@ class QuestionsController < ApplicationController
     # idの部分にはURLのquestionの数字部分が入る
     @question_answer = QuestionAnswer.new
     @question_answers = @question.question_answers
-  
   end
 
   private
