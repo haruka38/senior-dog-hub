@@ -1,3 +1,3 @@
-<%= turbo_stream.update "stamps_#{@stamp.stampable.id}" do %>
+<%= turbo_stream.update dom_id(@stamp.stampable, :stamps) do %>
   <%= render partial: "stamps/stamp_buttons", locals: { stampable: @stamp.stampable, stamp_types: stamp_types(@stamp.stampable) } %>
 <% end %>

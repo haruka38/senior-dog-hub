@@ -1,4 +1,4 @@
-<div class="mt-4 flex gap-3">
+<div id="<%= dom_id(stampable, :stamps) %>" class="mt-4 flex gap-3">
   <% stamp_counts = stampable.stamps.group(:stamp_type_id).count %>
   <% user_stamp_ids = stampable.stamps.where(guest_id: cookies[:guest_id]).pluck(:stamp_type_id) %>
 
