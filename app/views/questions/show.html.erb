@@ -9,9 +9,7 @@
     <p><%= @question.created_at.strftime('%Y/%m/%d') %></p>
   </div>
   <p class="mt-6"><%= @question.body %></p>
-  <div id="stamps_<%= "#{@question.id}" %>" >
-    <%= render partial: "stamps/stamp_buttons", locals: { stampable: @question, stamp_types: @question_stamp_types } %>
-  </div>
+  <%= render partial: "stamps/stamp_buttons", locals: { stampable: @question, stamp_types: @question_stamp_types } %>
 </div>
 
 <div class="justify-center items-center gap-y-8 p-4 mx-32 text-brown">
