@@ -1,0 +1,25 @@
+<div class="justify-center items-center gap-y-8 p-10 mx-32 mt-7 text-brown">
+  <h2 class="text-2xl font-bold mb-6">
+    <%= @question.new_record? ? "質問する" : "質問を編集する" %>
+  </h2>
+
+  <%= form_with model: @question do |f| %>
+    <div class="mb-4">
+      <%= f.label :body, "質問内容", class: "block font-bold mb-1" %>
+      <%= f.text_area :body, placeholder: "例：最近歩くのがゆっくりです…", class: "w-full border rounded p-2" %>
+    </div>
+    <div class="mb-4">
+      <%= f.label :nickname, "ニックネーム", class: "block font-bold mb-1" %>
+      <%= f.text_field :nickname, placeholder: "未入力でもOKです！", class: "w-full border rounded p-2" %>
+    </div>
+    <div class="mb-4">
+      <%= f.label :breed_id, "犬種", class: "block font-bold mb-1" %>
+      <%= f.collection_select :breed_id, Breed.all, :id, :name, { include_blank: "未入力でもOKです！" }, class: "w-full border rounded p-2" %>
+    </div>
+    <div class="mb-4">
+      <%= f.label :age, "年齢", class: "block font-bold mb-1" %>
+      <%= f.number_field :age, placeholder: "例：13 (半角数字で入力してください。未入力でもOKです！)", class: "w-full border rounded p-2" %>
+    </div>
+    <%= f.submit @question.new_record? ? "質問する" : "更新する", class: "bg-brown text-ivory font-bold py-3 px-6 rounded hover:opacity-90" %>
+  <% end %>
+</div>
