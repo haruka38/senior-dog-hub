@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   before_action :set_question_stamp_types
   before_action :set_answer_stamp_types
   before_action :set_question, only: [ :show, :edit, :update, :destroy ]
-  before_action :authenticate_user_or_guest, only: [ :edit, :update, :destroy ] # ユーザーがログインしているかの確認
+  before_action :authorize_user_or_guest, only: [ :edit, :update, :destroy ] # ユーザーがログインしているかの確認
   before_action :correct_user_or_guest?, only: [ :edit, :update, :destroy ] # ユーザーが投稿者かどうかの確認
 
   def index
@@ -49,7 +49,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @qustion.destroy
+    @question.destroy
     redirect_to questions_path, notice: "質問を削除しました"
   end
 
