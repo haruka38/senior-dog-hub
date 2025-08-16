@@ -7,7 +7,9 @@ class ApplicationController < ActionController::Base
   private
 
   def set_guest_id
-    # ||=で、すでに保存されていれば使う。なければ新しく作成して保存
-    cookies.permanent[:guest_id] ||= SecureRandom.uuid
+    if current_user.nil?
+      # ||=で、すでに保存されていれば使う。なければ新しく作成して保存
+      cookies.permanent[:guest_id] ||= SecureRandom.uuid
+    end
   end
 end

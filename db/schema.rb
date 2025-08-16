@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_07_110354) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_16_124852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,7 +35,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_110354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "breed_id"
+    t.bigint "user_id"
+    t.string "guest_id"
     t.index ["breed_id"], name: "index_questions_on_breed_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "stamp_types", force: :cascade do |t|
@@ -73,5 +76,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_110354) do
 
   add_foreign_key "question_answers", "questions"
   add_foreign_key "questions", "breeds"
+  add_foreign_key "questions", "users"
   add_foreign_key "stamps", "stamp_types"
 end
