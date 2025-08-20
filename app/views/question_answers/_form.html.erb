@@ -1,10 +1,10 @@
 <div>
-  <%= form_with model: @question_answer, url: question_question_answers_path(question) do |f| %>
+  <%= form_with model: @question_answer, url: @question_answer.new_record? ? question_question_answers_path(@question) : nil do |f| %>
     <div>
       <%= f.label :body, "回答する" ,class: "block font-bold mb-1" %>
       <%= f.text_area :body, placeholder:"例：うちの子も同じでした！", class: "w-full border rounded p-2" %>
     </div>
-    
-    <%= f.submit "回答する" ,class: "bg-green text-brown font-bold py-2 px-4 rounded hover:bg-green-600" %>
+
+    <%= f.submit ( @question_answer.new_record? ? "回答する" : "更新する" ) ,class: "bg-green text-brown font-bold py-2 px-4 rounded hover:bg-green-600" %>
   <% end %>
 </div>
