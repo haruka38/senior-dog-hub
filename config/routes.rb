@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   root "static_pages#top"
 
   resources :questions do
-    resources :question_answers, only: %i[create edit destroy], shallow: true do
+    resources :question_answers, only: %i[create edit update destroy], shallow: true do
       resources :stamps, only: %i[create]
     end
     resources :stamps, only: %i[create destroy]

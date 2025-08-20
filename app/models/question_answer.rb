@@ -3,4 +3,5 @@ class QuestionAnswer < ApplicationRecord
   has_many :stamps, as: :stampable, dependent: :destroy
 
   belongs_to :question
+  belongs_to :user, optional: true
 end
