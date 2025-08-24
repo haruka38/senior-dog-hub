@@ -19,7 +19,7 @@
     <% @dogs.each do |dog| %>
       <div class="dog-card">
         <p>名前: <%= dog.dog_name %></p>
-        <p>犬種: <%= dog.breed %></p>
+        <p>犬種: <%= dog.breed&.name %></p>
         <p>誕生日: <%= dog.birthday %></p>
         <% if dog.insurance_image.attached? %>
           <p>保険証</p>
