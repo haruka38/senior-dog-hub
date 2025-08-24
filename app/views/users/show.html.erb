@@ -1,0 +1,33 @@
+<h1>マイページ</h1>
+
+<!-- ユーザー情報 -->
+<div class="profile">
+  <% if @user.icon.attached? %>
+    <%= image_tag @user.icon, size: "100x100", class: "rounded-full" %>
+  <% end %>
+  <p>ニックネーム: <%= @user.name %></p>
+  <p>メール: <%= @user.email %></p>
+  <%= link_to "プロフィール編集",edit_user_registration_path, class: "btn btn-primary" %>
+  <%= link_to "アカウント削除", user_registration_path, class: "btn btn-error btn-sm bg-opacity-90", data: { turbo_method: :delete, turbo_confirm: "本当にアカウントを削除しますか" } %>
+    </div>
+
+  <!-- 犬の情報 -->
+  <div class="dogs">
+    <h2>登録しているわんこ</h2>
+    <%= link_to "新しくわんこを登録", new_dog_path, class: "btn btn-success" %>
+
+    <% @dogs.each do |dog| %>
+      <div class="dog-card">
+        <p>名前: <%= dog.dog_name %></p>
+        <p>犬種: <%= dog.breed %></p>
+        <p>誕生日: <%= dog.birthday %></p>
+        <% if dog.insurance_image.attached? %>
+          <p>保険証</p>
+          <%= image_tag dog.insurance_image, size: "200x200" %>
+        <% end %>
+        <%= link_to "編集", edit_dog_path(dog), class: "btn btn-warning" %>
+        <%= link_to "削除", dog_path(dog), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+      </div>
+    <% end %>
+  </div>
+</div>
