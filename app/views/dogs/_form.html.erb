@@ -1,0 +1,65 @@
+<%= form_with model: @dog, local: true do |f| %>
+  <div class="field">
+    <%= f.label :dog_name, "名前" %>
+    <%= f.text_field :dog_name, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :breed_id, "犬種" %>
+    <%= f.collection_select :breed_id, Breed.all, :id, :name, { include_blank: "未選択" }, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :disease, "病気" %>
+    <%= f.select :disease, Dog.diseases.keys.map { |k| [k.humanize, k] }, { include_blank: "なし" }, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :birthday, "誕生日" %>
+    <%= f.date_field :birthday, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :family_hospital_name, "かかりつけ病院名" %>
+    <%= f.text_field :family_hospital_name, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :family_hospital_tel, "かかりつけ病院電話番号" %>
+    <%= f.telephone_field :family_hospital_tel, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :family_hospital_address, "かかりつけ病院住所" %>
+    <%= f.text_field :family_hospital_address, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :emergency_hospital_name, "救急病院名" %>
+    <%= f.text_field :emergency_hospital_name, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :emergency_hospital_tel, "救急病院電話番号" %>
+    <%= f.telephone_field :emergency_hospital_tel, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :emergency_hospital_address, "救急病院住所" %>
+    <%= f.text_field :emergency_hospital_address, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :taxi_tel, "タクシー電話番号" %>
+    <%= f.telephone_field :taxi_tel, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="field mt-4">
+    <%= f.label :insurance_image, "保険証画像" %>
+    <%= f.file_field :insurance_image, class: "w-full border rounded p-2" %>
+  </div>
+
+  <div class="actions mt-6">
+    <%= f.submit submit_label, class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+  </div>
+<% end %>

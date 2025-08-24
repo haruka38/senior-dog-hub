@@ -39,6 +39,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+  # パスワードなしでユーザー情報を編集できるようにする
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
@@ -59,5 +63,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     questions_path
+  end
+
+  # ユーザー情報アップデート後はマイページへ遷移
+  def after_update_path_for(resource)
+    mypage_path
   end
 end

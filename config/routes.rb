@@ -25,4 +25,8 @@ Rails.application.routes.draw do
     resources :stamps, only: %i[create destroy]
   end
   delete "question_answers/:question_answer_id/stamps/:id", to: "stamps#destroy", as: :question_answer_stamp
+
+  get "users/show", to: "users#show", as: "mypage"
+
+  resources :dogs
 end
