@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       resources :stamps, only: %i[create]
     end
     resources :stamps, only: %i[create destroy]
+    # collectionはid不要、memberはidつき
+    collection do
+      get :my_questions
+    end
   end
   delete "question_answers/:question_answer_id/stamps/:id", to: "stamps#destroy", as: :question_answer_stamp
 

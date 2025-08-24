@@ -1,0 +1,29 @@
+<h1>自分の質問一覧</h1>
+
+<% if @questions.any? %>
+  <% @questions.each do |question| %>
+    <div class="question-card border p-4 mb-4 rounded">
+    <% @questions.each do |question| %>
+      <div class="justify-center items-center gap-y-8 p-10 mx-32 my-7 bg-ivory text-brown border-2 border-transparent hover:border-brown hover:shadow rounded-xl transition">
+        <%= link_to question_path(question), class: "block" do %>
+          <div class="flex justify-between items-center">
+            <div class="flex gap-x-6">
+              <!-- presence || 値があればそれを返し、なければ右側のものを返す -->
+              <p><%= question.nickname.presence|| "匿名さん" %></p>
+              <!-- 0に意味を持つならpresenceではなくnilがいいらしい -->
+              <p><%= question.age.nil? ? "" : "#{question.age}歳" %></p>
+              <p><%= question.breed&.name %></p>
+            </div>
+            <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
+          </div>
+          <p class="mt-2"><%= question.body %></p>
+        <% end %>
+        <div id="stamps_<%= "#{question.id}" %>" >
+          <%= render partial: "stamps/stamp_buttons", locals: { stampable: question, stamp_types: @question_stamp_types } %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>まだ質問はありません。</p>
+<% end %>

@@ -53,6 +53,10 @@ class QuestionsController < ApplicationController
     redirect_to questions_path, notice: "質問を削除しました"
   end
 
+  def my_questions
+    @questions = current_user.questions.order(created_at: :desc)
+  end
+
   private
 
   def set_question
