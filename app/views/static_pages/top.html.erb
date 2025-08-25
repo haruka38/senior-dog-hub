@@ -7,10 +7,22 @@
   </div>
 
   <!-- gap-8で横並びの要素同士の隙間(gap)を8に設定 -->
-  <div class="flex justify-center items-center gap-8 py-5">
+  <div class="flex justify-center items-center gap-8 py-5 my-3">
+    <div>
+      <%=link_to 'つかいかた' ,"", class: "py-5 px-8 bg-ivory text-brown text-lg rounded-xl"%>
+    </div>
+  </div>
+    <!-- ↑をコピーしてログインとユーザー登録ボタンを作る -->
+    
+  <div class="flex justify-center items-center gap-8 py-5 my-3">
     <div>
       <%=link_to '匿名ではじめる' ,questions_path, class: "py-5 px-8 bg-ivory text-brown text-lg rounded-xl"%>
     </div>
-    <!-- ↑をコピーしてログインとユーザー登録ボタンを作る -->
+    <div>
+      <%=link_to 'ログイン' ,new_user_session_path, class: "py-5 px-8 bg-ivory text-brown text-lg rounded-xl"%>
+    </div>
+    <div>
+      <%=link_to '新規登録' ,new_user_registration_path, class: "py-5 px-8 bg-ivory text-brown text-lg rounded-xl"%>
+    </div>
   </div>
 </div>
