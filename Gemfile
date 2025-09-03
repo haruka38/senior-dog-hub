@@ -61,3 +61,5 @@ gem "tailwindcss-ruby", "3.4.17"
 gem "pry-rails"
 
 gem "devise"
+gem "ransack"
+gem "kaminari"
