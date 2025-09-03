@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
   before_action :correct_user_or_guest?, only: [ :edit, :update, :destroy ] # ユーザーが投稿者かどうかの確認
 
   def index
-    @questions = Question.all
+    @questions = Question.page(params[:page])
     # user等と紐づける時はinclideにした方がいいかも
   end
 
