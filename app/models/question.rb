@@ -8,4 +8,9 @@ class Question < ApplicationRecord
   # optional: trueでbreedを必須ではなくする
   has_many :question_answers, dependent: :destroy
   has_many :stamps, as: :stampable, dependent: :destroy
+
+  # ransackで検索したいカラムを入れる
+  def self.ransackable_attributes(auth_object = nil)
+    [ "body", "breed_id", "updated_at" ]
+  end
 end
