@@ -2,23 +2,30 @@
   <div>
     <%= link_to '質問する' , new_question_path, class: "py-8 px-12 bg-green text-light-brown text-2xl font-bold rounded-xl fixed bottom-8 right-8 shadow-lg z-50" %>
   </div>
-  <%# ransackを利用した検索フォームでは、form_withの代わりにsearch_form_forを使う %>
-  <%= search_form_for @search do |f| %>
 
-  <%# `カラム名_cont`とすることで、カラムに対してLIKEを使った曖昧一致検索ができる %>
-  <%= f.label :body_cont, "ワード" %>
-  <%= f.search_field :body_cont %>
+  <%= turbo_frame_tag "search_form" do %>
+    <%# ransackを利用した検索フォームでは、form_withの代わりにsearch_form_forを使う %>
+    <%# local:falseで非同期リクエストになる。デフォルトのtrueではページ全体がリロードされる %>
+    <%= search_form_for @search, url: questions_path, data: { turbo_method: :get }, data: { turbo_frame: "questions" }, local: false do |f| %>
 
-  <%# `カラム名_eq`とすることで、カラムに対して完全一致検索ができる %>
-  <%# 犬種にしたい %>
-  <%= f.label :breed_id_eq, "犬種" %>
-  <%# idで検索してnameを表示する %>
-  <%= f.collection_select :breed_id_eq, Breed.all, :id, :name, include_blank: "選択してください" %>
-  <%= f.submit "検索" %>
+      <%# `カラム名_cont`とすることで、カラムに対してLIKEを使った曖昧一致検索ができる %>
+      <%= f.label :body_cont, "ワード" %>
+      <%= f.search_field :body_cont %>
 
-  <%# 検索結果と検索フォームをクリアする %>
-  <%= link_to "クリア", questions_path %>
- <% end %>
+      <%# `カラム名_eq`とすることで、カラムに対して完全一致検索ができる %>
+      <%# 犬種にしたい %>
+      <%= f.label :breed_id_eq, "犬種" %>
+      <%# idで検索してnameを表示する %>
+      <%= f.collection_select :breed_id_eq, Breed.all, :id, :name, include_blank: "選択してください" %>
+      <%= f.submit "検索" %>
+
+      <%# 検索結果と検索フォームをクリアする %>
+      <%# _topは画面全体を更新するturbo_frameの予約語 %>
+      <%= link_to "クリア", questions_path, data: { turbo_frame: "_top" } %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag "questions" do %>
   <div>
     <% @questions.each do |question| %>
       <div class="justify-center items-center gap-y-8 p-10 mx-32 my-7 bg-ivory text-brown border-2 border-transparent hover:border-brown hover:shadow rounded-xl transition">
@@ -42,4 +49,5 @@
     <% end %>
   </div>
   <%= paginate @questions %>
+  <% end %>
 </div>
