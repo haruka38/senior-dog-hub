@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
 
   before_action :set_question_stamp_types
   before_action :set_answer_stamp_types
+  before_action :set_tags, only: [ :new, :show, :edit ]
   before_action :set_question, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_user_or_guest, only: [ :edit, :update, :destroy ] # ユーザーがログインしているかの確認
   before_action :correct_user_or_guest?, only: [ :edit, :update, :destroy ] # ユーザーが投稿者かどうかの確認
@@ -10,7 +11,7 @@ class QuestionsController < ApplicationController
   def index
     @search = Question.ransack(params[:q])
     @search.sorts = "updated_at desc" if @search.sorts.empty?
-    @questions = @search.result.page(params[:page])
+    @questions = @search.result.includes(:tags).page(params[:page])
     # user等と紐づける時はinclideにした方がいいかも
   end
 
@@ -28,8 +29,10 @@ class QuestionsController < ApplicationController
     end
 
     if @question.save
+      @question.tags = Tag.where(id: params[:question][:tag_ids])
       redirect_to questions_path
     else
+      @tags = Tag.all
       render :new, status: :unprocessable_entity
     end
   end
@@ -67,7 +70,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:nickname, :breed_id, :age, :body)
+    params.require(:question).permit(:nickname, :breed_id, :age, :body, tag_ids: [])
   end
 
   def set_question_stamp_types
@@ -85,5 +88,9 @@ class QuestionsController < ApplicationController
 
   def authorize_user_or_guest
     redirect_to questions_path, alert: "権限がありません" unless correct_user_or_guest?
+  end
+
+  def set_tags
+    @tags = Tag.all
   end
 end

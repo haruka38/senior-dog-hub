@@ -20,6 +20,10 @@
       <%= f.label :age, "年齢", class: "block font-bold mb-1" %>
       <%= f.number_field :age, placeholder: "例：13 (半角数字で入力してください。未入力でもOKです！)", class: "w-full border rounded p-2" %>
     </div>
+    <div class="mb-4">
+      <%= f.label :tag_ids, "タグ", class: "block font-bold mb-1" %>
+      <%= f.collection_select :tag_ids, @tags, :id, :name, { include_blank: "コントロールを押しながら複数選択できます" }, { multiple: true, class: "w-full border rounded p-2 form-control" } %>
+    </div>
     <%= f.submit @question.new_record? ? "質問する" : "更新する", class: "bg-brown text-ivory font-bold py-3 px-6 rounded hover:opacity-90" %>
   <% end %>
 </div>
