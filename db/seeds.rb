@@ -11,6 +11,7 @@
 # 開発・本番共通
 
 load Rails.root.join("db/seeds/breeds.rb")
+load Rails.root.join("db/seeds/tags.rb")
 
 if Rails.env.development?
   load Rails.root.join("db/seeds/development.rb")

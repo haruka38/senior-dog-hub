@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_22_105728) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_06_234915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -78,6 +78,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_105728) do
     t.index ["user_id"], name: "index_question_answers_on_user_id"
   end
 
+  create_table "question_tags", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id", "tag_id"], name: "index_question_tags_on_question_id_and_tag_id", unique: true
+    t.index ["question_id"], name: "index_question_tags_on_question_id"
+    t.index ["tag_id"], name: "index_question_tags_on_tag_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.text "body", null: false
     t.string "nickname"
@@ -111,6 +121,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_105728) do
     t.index ["user_id"], name: "index_stamps_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -130,6 +147,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_105728) do
   add_foreign_key "dogs", "users"
   add_foreign_key "question_answers", "questions"
   add_foreign_key "question_answers", "users"
+  add_foreign_key "question_tags", "questions"
+  add_foreign_key "question_tags", "tags"
   add_foreign_key "questions", "breeds"
   add_foreign_key "questions", "users"
   add_foreign_key "stamps", "stamp_types"
