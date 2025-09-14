@@ -12,7 +12,24 @@
   <% @question.tags.each do |tag| %>
     <li><%= tag.name %></li>
   <% end %>
-  <%= render partial: "stamps/stamp_buttons", locals: { stampable: @question, stamp_types: @question_stamp_types } %>
+
+  <div class="flex justify-between items-center mt-4">
+    <!-- スタンプは左寄せ -->
+    <div>
+      <%= render partial: "stamps/stamp_buttons", locals: { stampable: @question, stamp_types: @question_stamp_types } %>
+    </div>
+
+    <!-- Xシェアボタンは右寄せ -->
+    <div>
+      <% tweet_text = "#{@question.body.truncate(20)}...\n#シニア犬 #老犬くらぶ\n#{question_url(@question)}" %>
+
+      <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode(tweet_text)}",
+                  target: "_blank", rel: "noopener",
+                  class: "inline-flex items-center px-4 py-2 bg-beige-200 text-gray-800 rounded-full shadow hover:opacity-80 transition" do %>
+        <i class="fab fa-x-twitter mr-2"></i> シェア
+      <% end %>
+    </div>
+  </div>
 
   <% if @question.user == current_user %>
     <div class="mt-4 flex gap-4">
