@@ -13,9 +13,10 @@
     <li><%= tag.name %></li>
   <% end %>
 
-  <div class="flex justify-between items-center mt-4">
+  <div class="flex justify-between items-center mt-6">
     <!-- スタンプは左寄せ -->
-    <div>
+    <div class="flex items-center gap-4">
+      <%= render "favorites/favorite_buttons", question: @question %>
       <%= render partial: "stamps/stamp_buttons", locals: { stampable: @question, stamp_types: @question_stamp_types } %>
     </div>
 
@@ -26,7 +27,7 @@
       <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode(tweet_text)}",
                   target: "_blank", rel: "noopener",
                   class: "inline-flex items-center px-4 py-2 bg-beige-200 text-gray-800 rounded-full shadow hover:opacity-80 transition" do %>
-        <i class="fab fa-x-twitter mr-2"></i> シェア
+        <i class="fab fa-x-twitter mr-2"></i> でシェア
       <% end %>
     </div>
   </div>
