@@ -1,0 +1,20 @@
+<%# 1投稿ごとにturbo_frameで囲むことで非同期更新 %>
+<%= turbo_frame_tag "favorite_#{question.id}" do %>
+  <% if current_user %>
+    <% if current_user.favorites.exists?(question_id: question.id) %>
+      <%= button_to question_favorite_path(question),
+                    method: :delete,
+                    class: "text-yellow-400 text-2xl hover:text-yellow-500",
+                    data: { turbo_frame: "favorite_#{question.id}", turbo_method: :delete } do %>
+        <i class="fas fa-star"></i>
+      <% end %>
+    <% else %>
+      <%= button_to question_favorite_path(question),
+                    method: :post,
+                    class: "text-gray-400 text-2xl hover:text-yellow-300",
+                    data: { turbo_frame: "favorite_#{question.id}" } do %>
+        <i class="far fa-star"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

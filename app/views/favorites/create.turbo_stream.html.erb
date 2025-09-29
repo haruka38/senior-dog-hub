@@ -1,0 +1,3 @@
+<%= turbo_frame_tag "favorite_#{@question.id}" do %>
+  <%= render "favorites/favorite_buttons", question: @question %>
+<% end %>

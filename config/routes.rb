@@ -27,10 +27,15 @@ Rails.application.routes.draw do
     collection do
       get :my_questions
     end
+    resource :favorite, only: %i[create destroy]
   end
   delete "question_answers/:question_answer_id/stamps/:id", to: "stamps#destroy", as: :question_answer_stamp
 
   get "users/show", to: "users#show", as: "mypage"
 
+  get "users/:id/favorites", to: "favorites#index", as: "user_favorites"
+
   resources :dogs
+
+  # resources :favorites only: [:index]
 end
