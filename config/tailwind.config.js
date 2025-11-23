@@ -11,9 +11,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        body: ['Zen Kaku Gothic New', ...defaultTheme.fontFamily.sans],
         shirokuma: ['Shirokuma', 'sans-serif'],
         kaisei_decol: ['Kaisei Decol', 'sans-serif'],
+        zen_kaku: ['Zen Kaku Gothic New', 'sans-serif']
       },
       colors: {
         'ivory': '#FDFBF6',

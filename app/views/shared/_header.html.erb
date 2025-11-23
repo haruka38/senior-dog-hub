@@ -1,37 +1,40 @@
-<header class="bg-ivory" data-controller="header">
-  <div class="mx-auto px-4 py-2 flex justify-between items-center">
+<header class="border-b-2 border-b-[#E9E1D4]" data-controller="header">
+  <div class="mx-auto px-4 py-2 flex justify-between items-center text-brown">
   <!-- justify-betweenで要素を左右に分ける -->
     <%= link_to root_path do %>
-      <h1 class="text-brown text-lg font-kaisei_decol" >老犬くらぶ</h1>
+      <h1 class="text-brown text-lg font-kaisei_decol font-bold" >老犬くらぶ</h1>
     <% end %>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
-      </li>
-      <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path %>
-      </li>
-    <% end %>
- <!-- ハンバーガーメニュー -->
-    <nav class="text-brown">
-      <button data-action ="click->header#toggleMenu" type="button" class="z-10">
-        <i data-header-target="bars" class="fa-solid fa-bars fa-2x p-4"></i>
-        <i data-header-target="xmark" class="fa-solid fa-xmark fa-2x p-4 hidden relative"></i>
-      </button>
-      <ul data-header-target="menu" class="absolute top-16 right-0 bg-ivory translate-x-full border-2 border-solid border-brown">
-        <li class="px-4 py-2 border-b border-brown"><%= link_to 'トップ', root_path %></li>
-        <!-- ユーザー登録 -->
-        <li class="px-4 py-2"><%= link_to '質問一覧', questions_path %></li>
-        <!-- マイページ -->
-        <li class="px-4 py-2"><%= link_to 'マイページ', mypage_path %></li>
-        <!-- つぶやき一覧 -->
-        <!-- ログイン -->
-      </ul>
-    </nav>
+
+    <div class="flex list-none items-center gap-6">
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+        </li>
+        <% else %>
+        <li>
+          <%= link_to "新規登録", new_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to "ログイン", new_user_session_path %>
+        </li>
+      <% end %>
+      <!-- ハンバーガーメニュー -->
+      <nav class="text-brown">
+        <button data-action ="click->header#toggleMenu" type="button" class="z-10">
+          <i data-header-target="bars" class="fa-solid fa-bars fa-2x p-4"></i>
+          <i data-header-target="xmark" class="fa-solid fa-xmark fa-2x p-4 hidden relative"></i>
+        </button>
+        <ul data-header-target="menu" class="absolute top-16 right-0 bg-ivory translate-x-full border-2 border-solid border-brown">
+          <li class="px-4 py-2 border-b border-brown"><%= link_to 'トップ', root_path %></li>
+          <!-- ユーザー登録 -->
+          <li class="px-4 py-2"><%= link_to '質問一覧', questions_path %></li>
+          <!-- マイページ -->
+          <li class="px-4 py-2"><%= link_to 'マイページ', mypage_path %></li>
+          <!-- つぶやき一覧 -->
+          <!-- ログイン -->
+        </ul>
+      </nav>
+    </div>
   </div>
 
 </header>

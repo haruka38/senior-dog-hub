@@ -1,0 +1,48 @@
+ja:
+  devise:
+    confirmations:
+      confirmed: "メールアドレスが確認されました。"
+      send_instructions: "確認メールを送信しました。"
+      send_paranoid_instructions: "確認メールを送信しました。"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      inactive: "アカウントが有効化されていません。"
+      invalid: "メールアドレスまたはパスワードが違います。"
+      locked: "アカウントがロックされています。"
+      not_found_in_database: "メールアドレスまたはパスワードが違います。"
+      timeout: "セッションがタイムアウトしました。再度ログインしてください。"
+      unauthenticated: "ログインが必要です。"
+    mailer:
+      confirmation_instructions:
+        subject: "メールアドレス確認"
+      reset_password_instructions:
+        subject: "パスワード再設定"
+      unlock_instructions:
+        subject: "アカウントのロック解除"
+    passwords:
+      edit:
+        change_my_password: "パスワードを変更"
+        change_your_password: "パスワードを変更"
+        confirm_new_password: "新しいパスワード（確認）"
+        new_password: "新しいパスワード"
+      new:
+        forgot_your_password: "パスワードをお忘れですか？"
+        send_me_reset_password_instructions: "パスワード再設定メールを送信"
+    registrations:
+      new:
+        sign_up: "新規登録"
+      edit:
+        edit: "登録情報を編集"
+        update: "更新"
+        cancel_my_account: "アカウントを削除"
+    sessions:
+      new:
+        sign_in: "ログイン"
+        sign_out: "ログアウト"
+    shared:
+      links:
+        sign_in: "ログイン"
+        sign_up: "新規登録"
+        forgot_your_password: "パスワードをお忘れの方はこちら"
+        didn_t_receive_confirmation_instructions: "確認メールを受け取っていませんか？"
+        didn_t_receive_unlock_instructions: "ロック解除メールを受け取っていませんか？"

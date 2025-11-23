@@ -5,7 +5,7 @@ FROM ruby:3.3.6
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
 
-# node.jsやらyarnやらなんやらをシステム全体にインストール
+# node.jsやyarnをインストール
 RUN apt-get update -qq \
 && apt-get install -y ca-certificates curl gnupg \
 && mkdir -p /etc/apt/keyrings \
@@ -14,14 +14,23 @@ RUN apt-get update -qq \
 && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
 && wget --quiet -O - /tmp/pubkey.gpg https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs yarn vim
 
-# ディレクトリを作成してそれを作業ディレクトリ（Dockerが操作するディレクトリ）に設定
+# 作業ディレクトリ
 RUN mkdir /myapp
 WORKDIR /myapp
+
+# bundler を先に入れる
 RUN gem install bundler
 
-# Dockerfileが存在するディレクトリ内（コンテナの外。今回の場合はRailsのアプリがあるディレクトリ）
-# にあるすべてのファイルとサブディレクトリをコンテナ内の/myappにコピー
-COPY . /myapp
+# Gemfile と package.json を先にコピーして依存関係をキャッシュ
+COPY Gemfile Gemfile.lock /myapp/
+COPY package.json yarn.lock /myapp/
 
+# Ruby と JavaScript の依存関係をインストール
+RUN bundle install
+RUN yarn install
+
+# 最後にアプリ全体をコピー
+COPY . /myapp
