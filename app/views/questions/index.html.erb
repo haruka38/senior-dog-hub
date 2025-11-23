@@ -7,25 +7,37 @@
     <%# ransackを利用した検索フォームでは、form_withの代わりにsearch_form_forを使う %>
     <%# local:falseで非同期リクエストになる。デフォルトのtrueではページ全体がリロードされる %>
     <%= search_form_for @search, url: questions_path, data: { turbo_method: :get }, data: { turbo_frame: "questions" }, local: false do |f| %>
+      <div class="flex justify-center mt-4">
+        <div class="flex gap-3 items-center flex-wrap">
 
-      <%# `カラム名_cont`とすることで、カラムに対してLIKEを使った曖昧一致検索ができる %>
-      <%= f.label :body_cont, "ワード" %>
-      <%= f.search_field :body_cont %>
+          <%# `カラム名_cont`とすることで、カラムに対してLIKEを使った曖昧一致検索ができる %>
+          <%= f.search_field :body_cont,
+            placeholder: "ワード",
+            class: "border border-beige rounded-md p-2" %>
 
-      <%# `カラム名_eq`とすることで、カラムに対して完全一致検索ができる %>
-      <%# 犬種にしたい %>
-      <%= f.label :breed_id_eq, "犬種" %>
-      <%# idで検索してnameを表示する %>
-      <%= f.collection_select :breed_id_eq, Breed.all, :id, :name, include_blank: "選択してください" %>
+          <%# `カラム名_eq`とすることで、カラムに対して完全一致検索ができる %>
+          <%# 犬種にしたい %>
+          <%= f.collection_select :breed_id_eq,
+          Breed.all, :id, :name,
+          { prompt: "犬種" },
+          { class: "border border-beige rounded-md p-2 w-40 bg-white text-gray-400",
+          onchange: "this.classList.remove('text-gray-400')" } %>
 
-      <%= f.label :tags_id_eq, "タグ" %>
-      <%= f.collection_select :tags_id_eq, Tag.all, :id, :name, include_blank: "選択してください" %>
+          <%= f.collection_select :tags_id_eq,
+          Tag.all, :id, :name,
+          { prompt: "タグ" },
+          { class: "border border-beige rounded-md p-2 w-40 bg-white text-gray-400",
+          onchange: "this.classList.remove('text-gray-400')" } %>
+          <%= f.submit "検索",
+          class: "bg-light-brown text-white px-4 py-2 rounded-md" %>
 
-      <%= f.submit "検索" %>
-
-      <%# 検索結果と検索フォームをクリアする %>
-      <%# _topは画面全体を更新するturbo_frameの予約語 %>
-      <%= link_to "クリア", questions_path, data: { turbo_frame: "_top" } %>
+          <%# 検索結果と検索フォームをクリアする %>
+          <%# _topは画面全体を更新するturbo_frameの予約語 %>
+          <%= link_to "クリア", questions_path,
+          data: { turbo_frame: "_top" },
+          class: "text-blue-600 underline" %>
+        </div>
+      </div>
     <% end %>
   <% end %>
 

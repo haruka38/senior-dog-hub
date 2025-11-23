@@ -1,8 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&family=Zen+Kaku+Gothic+New&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 全体のデフォルトフォント設定 */
+@layer base {
+  body {
+    @apply font-body;
+  }
+}
 
 /*
 
