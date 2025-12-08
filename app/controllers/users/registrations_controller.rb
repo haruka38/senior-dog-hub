@@ -46,12 +46,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :attribute ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name, :email, :icon ])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [ :attribute ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name, :email, :icon ])
   end
 
   # The path used after sign up.
@@ -68,5 +68,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # ユーザー情報アップデート後はマイページへ遷移
   def after_update_path_for(resource)
     mypage_path
+  end
+
+  def delete_icon
+  current_user.icon.purge
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to edit_user_registration_path, notice: "アイコンを削除しました" }
+    end
   end
 end

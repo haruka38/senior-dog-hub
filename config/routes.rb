@@ -38,4 +38,16 @@ Rails.application.routes.draw do
   resources :dogs
 
   # resources :favorites only: [:index]
+  resource :contact, only: [ :new, :create ]
+
+  # letter_opener_web
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
+  devise_scope :user do
+    delete "users/delete_icon",
+           to: "users/registrations#delete_icon",
+           as: :delete_user_icon
+  end
 end

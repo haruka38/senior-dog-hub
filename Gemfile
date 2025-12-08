@@ -43,6 +43,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "letter_opener_web"
 end
 
 group :development do
@@ -64,3 +66,4 @@ gem "devise"
 gem "ransack"
 gem "kaminari"
 gem "rails-i18n"
+gem "config"

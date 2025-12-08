@@ -1,45 +1,80 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2 class="text-brown text-2xl font-bold text-center my-6">プロフィール編集</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="flex justify-center text-center">
+  <div class="rounded-2xl p-8 w-full max-w-md text-center border-4 border-beige">
 
-  <div class="field">
-    <%= f.label :name, "ニックネーム" %><br />
-    <%= f.text_field :name, autofocus: true %><br />
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      <!-- ▼▼▼ Turbo Frame（ここだけ差し替わる） ▼▼▼ -->
+      <turbo-frame id="user_icon_frame">
+        <div class="mb-6 flex items-center justify-center gap-6">
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+          <!-- アイコン表示部分 -->
+          <% if resource.icon.attached? %>
+            <%= image_tag resource.icon,
+                class: "rounded-full object-cover w-24 h-24 flex-shrink-0" %>
+          <% else %>
+            <div class="w-24 h-24 bg-gray-200 rounded-full flex-shrink-0"></div>
+          <% end %>
+
+          <!-- 右側：変更 / 削除 ボタン -->
+          <div class="flex flex-col gap-3 text-left">
+            <!-- 変更（file upload） -->
+            <label class="text-light-brown text-sm">アイコン</label>
+            <%= f.file_field :icon,
+                class: "border border-light-brown rounded-md p-2 w-32 text-sm
+                        focus:outline-none focus:ring-2 focus:ring-beige" %>
+            
+              <!-- 削除ボタン（TurboStream対応） -->
+              <%# if resource.icon.attached? %>
+                <%#= button_to "削除", delete_user_icon_path,
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "本当に削除しますか？"
+                    },
+                    class: "bg-red-500 text-white rounded px-3 py-1 text-sm" %>
+              <%# end %>
+            
+
+          </div>
+        </div>
+      </turbo-frame>
+      <!-- ▲▲▲ Turbo Frame ▲▲▲ -->
+
+      <!-- 名前 -->
+      <div class="mb-4">
+        <%= f.label :name, "ニックネーム", class: "text-light-brown block mb-2 text-left" %>
+        <%= f.text_field :name,
+              class: "w-full border border-light-brown rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-beige mb-6" %>
+      </div>
+
+      <!-- メール -->
+      <div class="mb-4">
+        <%= f.label :email, "メールアドレス", class: "text-light-brown block mb-2 text-left" %>
+        <%= f.email_field :email,
+              autocomplete: "email",
+              class: "w-full border border-light-brown rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-beige mb-6" %>
+      </div>
+
+      <!-- 更新ボタン -->
+      <div class="mt-4">
+        <%= f.submit "更新する",
+              class: "bg-beige text-white rounded px-4 py-2 mb-4 font-bold text-center" %>
+      </div>
+
     <% end %>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+<!-- 戻る / アカウント削除 -->
+<div class="flex flex-col justify-center items-center mt-4">
+  <%= link_to "戻る", mypage_path, class: "underline text-light-brown" %>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+  <%= button_to "アカウントを削除する",
+        registration_path(resource_name),
+        method: :delete,
+        data: { turbo_confirm: "本当に削除しますか？" },
+        form_class: "inline-block",
+        class: "underline text-red-500 mt-2" %>
+</div>

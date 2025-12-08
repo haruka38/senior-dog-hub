@@ -35,6 +35,9 @@ ja:
         edit: "登録情報を編集"
         update: "更新"
         cancel_my_account: "アカウントを削除"
+      user:
+        updated: "プロフィールを更新しました"
+        destroyed: "アカウントを削除しました"
     sessions:
       new:
         sign_in: "ログイン"
