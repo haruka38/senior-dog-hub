@@ -1,38 +1,92 @@
-<h1>マイページ</h1>
+<h1 class="justify-center items-center text-center gap-y-8 p-10 mx-32 my-6 text-brown text-2xl font-bold"">マイページ</h1>
+
+
+<!-- 自分投稿一覧 -->
+  <div class="flex justify-center gap-6 mt-6 mb-6">
+    <%= link_to "自分の投稿一覧",
+              my_questions_questions_path,
+              class: "block bg-beige text-white rounded px-4 py-3  font-bold text-center" %>
+
+    <%= link_to "お気に入り一覧",
+              user_favorites_path(current_user),
+              class: "block bg-beige text-white rounded px-4 py-3  font-bold text-center" %>
+  </div>
 
 <!-- ユーザー情報 -->
-<div class="profile">
-  <% if @user.icon.attached? %>
-    <%= image_tag @user.icon, size: "100x100", class: "rounded-full" %>
-  <% end %>
-  <p>ニックネーム: <%= @user.name %></p>
-  <p>メール: <%= @user.email %></p>
-  <%= link_to "プロフィール編集",edit_user_registration_path, class: "btn btn-primary" %>
-  <%= link_to "アカウント削除", user_registration_path, class: "btn btn-error btn-sm bg-opacity-90", data: { turbo_method: :delete, turbo_confirm: "本当にアカウントを削除しますか" } %>
+<div class="bg-white border-2 border-beige rounded-3xl px-6 py-6 mb-10 shadow-sm max-w-xl mx-auto">
+  <div class="flex items-center gap-4 mb-4">
+    <!-- アイコン表示（ActiveStorage用：size は使わず固定幅を指定） -->
+    <% if @user.icon.attached? %>
+      <%= image_tag @user.icon,
+            class: "rounded-full object-cover w-24 h-24 flex-shrink-0" %>
+    <% else %>
+      <div class="w-24 h-24 bg-gray-200 rounded-full flex-shrink-0"></div>
+    <% end %>
+
+    <!-- 名前・メール（ここを伸ばす） -->
+    <div class="flex-1">
+      <p class="text-xl font-semibold text-gray-800"><%= @user.name %></p>
+      <p class="text-gray-600 flex items-center gap-1 text-sm">
+        ✉️ <%= @user.email %>
+      </p>
     </div>
 
+    <!-- 編集ボタン（最後の子に ml-auto で右寄せ） -->
+    <%= link_to "編集",
+          edit_user_registration_path,
+          class: "ml-auto bg-beige text-white rounded px-4 py-2 font-bold text-center text-sm" %>
+  </div>
+</div>
+
   <!-- 犬の情報 -->
-  <div class="dogs">
-    <h2>登録しているわんこ</h2>
-    <%= link_to "新しくわんこを登録", new_dog_path, class: "btn btn-success" %>
+<div class="dogs max-w-xl mx-auto">
 
-    <% @dogs.each do |dog| %>
-      <div class="dog-card">
-        <p>名前: <%= dog.dog_name %></p>
-        <p>犬種: <%= dog.breed&.name %></p>
-        <p>誕生日: <%= dog.birthday %></p>
-        <% if dog.insurance_image.attached? %>
-          <p>保険証</p>
-          <%= image_tag dog.insurance_image, size: "200x200" %>
-        <% end %>
-        <%= link_to "編集", edit_dog_path(dog), class: "btn btn-warning" %>
-        <%= link_to "削除", dog_path(dog), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+  <%= link_to "新しくわんこを登録",
+        new_dog_path,
+        class: "bg-beige text-white rounded px-4 py-2 font-bold inline-block mb-6" %>
+
+  <% @user.dogs.each do |dog| %>
+    <div class="bg-white border-2 border-beige rounded-3xl px-6 py-6 mb-6 shadow-sm">
+
+      <div class="flex items-center gap-4">
+        <!-- 犬の基本情報 -->
+        <div class="flex-1">
+          <p class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+            🐕 <%= dog.dog_name %>
+          </p>
+
+          <p class="text-gray-700 text-sm">
+            <%= dog.breed&.name %> ・ <%= dog.age %>歳
+          </p>
+
+          <% if dog.birthday.present? %>
+            <p class="text-gray-600 text-sm mt-1">
+              🎂 誕生日：<%= dog.birthday %>
+            </p>
+          <% end %>
+
+          <% if dog.insurance_image.attached? %>
+            <p class="text-gray-600 text-sm mt-2">
+              🏥 <%= link_to "保険証を見る", dog.insurance_image, class: "underline text-gray-700" %>
+            </p>
+          <% end %>
+        </div>
+
+        <!-- 編集・削除ボタン（右寄せ） -->
+        <div class="flex flex-col gap-2 ml-auto">
+          <%= link_to "編集",
+                edit_dog_path(dog),
+                class: "bg-beige text-white rounded px-3 py-1 text-sm font-bold text-center" %>
+
+          <%= link_to "削除",
+                dog_path(dog),
+                data: { turbo_method: :delete,
+                        turbo_confirm: "本当に削除しますか？" },
+                class: "bg-red-500 text-white rounded px-3 py-1 text-sm text-center" %>
+        </div>
+
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
-  <!-- 自分投稿一覧 -->
-  <div>
-    <%= link_to "自分の投稿一覧", my_questions_questions_path, class: "btn btn-success" %>
-  </div>
 </div>

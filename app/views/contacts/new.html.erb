@@ -1,0 +1,28 @@
+<h2 class="text-brown text-2xl font-bold text-center my-6">お問い合わせ</h2>
+
+<div class="flex justify-center text-center">
+  <div class="rounded-2xl p-8 w-full max-w-md text-center border-4 border-beige">
+
+    <%= form_with url: contact_path, local: true do %>
+
+      <div class="field mb-4">
+        <%= label_tag :email, "メールアドレス", class: "text-light-brown block mb-1 text-left" %>
+        <%= text_field_tag :email,
+              (user_signed_in? ? current_user.email : ""),
+              class: "w-full border border-light-brown rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-beige mb-4" %>
+      </div>
+
+      <div class="field mb-6">
+        <%= label_tag :message, "お問い合わせ内容", class: "text-light-brown block mb-1 text-left" %>
+        <%= text_area_tag :message, "",
+              class: "w-full h-32 border border-light-brown rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-beige mb-4" %>
+      </div>
+
+      <div class="actions">
+        <%= submit_tag "送信する", class: "bg-beige text-white rounded px-4 py-2 mb-4 font-bold w-full" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

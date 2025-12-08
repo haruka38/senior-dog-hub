@@ -11,4 +11,14 @@ class Dog < ApplicationRecord
     cancer: 4,
     other: 99
   }
+
+  def age
+    return nil unless birthday.present?
+
+    today = Date.today
+    age = today.year - birthday.year
+    age -= 1 if today < birthday + age.years  # 誕生日がまだ来ていなければ -1
+
+    age
+  end
 end

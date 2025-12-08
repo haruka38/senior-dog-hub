@@ -2,7 +2,7 @@
 
 <% if @questions.any? %>
   <% @questions.each do |question| %>
-    <div class="question-card border p-4 mb-4 rounded">
+    <div class="question-card">
     <% @questions.each do |question| %>
       <div class="justify-center items-center gap-y-8 p-10 mx-32 my-7 bg-ivory text-brown border-2 border-transparent hover:border-brown hover:shadow rounded-xl transition">
         <%= link_to question_path(question), class: "block" do %>

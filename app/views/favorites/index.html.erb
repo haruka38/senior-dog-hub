@@ -1,0 +1,26 @@
+<h1 class="justify-center items-center text-center gap-y-8 p-10 mx-32 my-6 text-brown text-2xl font-bold">
+  お気に入り一覧
+</h1>
+
+<div>
+  <% @favorite_questions.each do |question| %>
+    <div class="justify-center items-center gap-y-8 p-10 mx-32 my-7 bg-ivory text-brown border-2 border-transparent hover:border-brown hover:shadow rounded-xl transition">
+
+      <%= link_to question_path(question), class: "block", data: { turbo_frame: "_top" } do %>
+        <div class="flex justify-between items-center">
+          <div class="flex gap-x-6">
+            <p><%= question.nickname.presence || "匿名さん" %></p>
+
+            <p><%= question.age.nil? ? "" : "#{question.age}歳" %></p>
+
+            <p><%= question.breed&.name %></p>
+          </div>
+
+          <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
+        </div>
+
+        <p class="mt-2"><%= question.body %></p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
