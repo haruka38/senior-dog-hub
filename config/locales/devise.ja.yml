@@ -1,4 +1,7 @@
 ja:
+  errors:
+    messages:
+      not_saved: "%{count}件のエラーが発生したため %{resource} は保存されませんでした。"
   devise:
     confirmations:
       confirmed: "メールアドレスが確認されました。"
@@ -28,6 +31,7 @@ ja:
       new:
         forgot_your_password: "パスワードをお忘れですか？"
         send_me_reset_password_instructions: "パスワード再設定メールを送信"
+      send_instructions: "パスワード再設定用のメールを送信しました。"
     registrations:
       new:
         sign_up: "新規登録"
@@ -39,9 +43,9 @@ ja:
         updated: "プロフィールを更新しました"
         destroyed: "アカウントを削除しました"
     sessions:
-      new:
-        sign_in: "ログイン"
-        sign_out: "ログアウト"
+      user:
+        signed_in: "ログインしました"
+        signed_out: "ログアウトしました"
     shared:
       links:
         sign_in: "ログイン"
