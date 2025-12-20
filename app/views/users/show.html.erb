@@ -1,21 +1,34 @@
-<h1 class="justify-center items-center text-center gap-y-8 p-10 mx-32 my-6 text-brown text-2xl font-bold"">マイページ</h1>
+<h1 class="
+  text-center
+  py-6 sm:py-10
+  px-4
+  text-xl sm:text-2xl
+  text-brown font-bold
+  ">
+  マイページ
+</h1>
 
+<div class="
+  flex flex-col sm:flex-row
+  justify-center
+  gap-4 sm:gap-6
+  mt-6 mb-6
+  px-4
+">
+  <%= link_to "自分の投稿一覧",
+        my_questions_questions_path,
+        class: "w-full sm:w-auto bg-beige text-white rounded px-4 py-3 font-bold text-center" %>
 
-<!-- 自分投稿一覧 -->
-  <div class="flex justify-center gap-6 mt-6 mb-6">
-    <%= link_to "自分の投稿一覧",
-              my_questions_questions_path,
-              class: "block bg-beige text-white rounded px-4 py-3  font-bold text-center" %>
-
-    <%= link_to "お気に入り一覧",
-              user_favorites_path(current_user),
-              class: "block bg-beige text-white rounded px-4 py-3  font-bold text-center" %>
-  </div>
+  <%= link_to "お気に入り一覧",
+        user_favorites_path(current_user),
+        class: "w-full sm:w-auto bg-beige text-white rounded px-4 py-3 font-bold text-center" %>
+</div>
 
 <!-- ユーザー情報 -->
 <div class="bg-white border-2 border-beige rounded-3xl px-6 py-6 mb-10 shadow-sm max-w-xl mx-auto">
-  <div class="flex items-center gap-4 mb-4">
-    <!-- アイコン表示（ActiveStorage用：size は使わず固定幅を指定） -->
+  <div class="flex flex-col sm:flex-row items-center gap-4">
+
+    <!-- アイコン -->
     <% if @user.icon.attached? %>
       <%= image_tag @user.icon,
             class: "rounded-full object-cover w-24 h-24 flex-shrink-0" %>
@@ -23,33 +36,35 @@
       <div class="w-24 h-24 bg-gray-200 rounded-full flex-shrink-0"></div>
     <% end %>
 
-    <!-- 名前・メール（ここを伸ばす） -->
-    <div class="flex-1">
+    <!-- 名前・メール -->
+    <div class="flex-1 text-center sm:text-left">
       <p class="text-xl font-semibold text-gray-800"><%= @user.name %></p>
-      <p class="text-gray-600 flex items-center gap-1 text-sm">
+      <p class="text-gray-600 flex items-center justify-center sm:justify-start gap-1 text-sm">
         ✉️ <%= @user.email %>
       </p>
     </div>
 
-    <!-- 編集ボタン（最後の子に ml-auto で右寄せ） -->
+    <!-- 編集ボタン -->
     <%= link_to "編集",
           edit_user_registration_path,
-          class: "ml-auto bg-beige text-white rounded px-4 py-2 font-bold text-center text-sm" %>
+          class: "bg-beige text-white rounded px-4 py-2 font-bold text-sm w-full sm:w-auto text-center" %>
   </div>
 </div>
 
-  <!-- 犬の情報 -->
-<div class="dogs max-w-xl mx-auto">
+
+<!-- 犬の情報 -->
+<div class="dogs max-w-xl mx-auto px-4">
 
   <%= link_to "新しくわんこを登録",
         new_dog_path,
-        class: "bg-beige text-white rounded px-4 py-2 font-bold inline-block mb-6" %>
+        class: "bg-beige text-white rounded px-4 py-2 font-bold inline-block mb-6 w-full sm:w-auto text-center" %>
 
   <% @user.dogs.each do |dog| %>
     <div class="bg-white border-2 border-beige rounded-3xl px-6 py-6 mb-6 shadow-sm">
 
-      <div class="flex items-center gap-4">
-        <!-- 犬の基本情報 -->
+      <div class="flex flex-col sm:flex-row gap-4">
+
+        <!-- 犬情報 -->
         <div class="flex-1">
           <p class="text-xl font-semibold text-gray-800 flex items-center gap-2">
             🐕 <%= dog.dog_name %>
@@ -72,21 +87,19 @@
           <% end %>
         </div>
 
-        <!-- 編集・削除ボタン（右寄せ） -->
-        <div class="flex flex-col gap-2 ml-auto">
+        <!-- ボタン -->
+        <div class="flex sm:flex-col gap-2 sm:ml-auto">
           <%= link_to "編集",
                 edit_dog_path(dog),
-                class: "bg-beige text-white rounded px-3 py-1 text-sm font-bold text-center" %>
+                class: "bg-beige text-white rounded px-3 py-2 text-sm font-bold text-center w-full sm:w-auto" %>
 
           <%= link_to "削除",
                 dog_path(dog),
-                data: { turbo_method: :delete,
-                        turbo_confirm: "本当に削除しますか？" },
-                class: "bg-red-500 text-white rounded px-3 py-1 text-sm text-center" %>
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                class: "bg-red-500 text-white rounded px-3 py-2 text-sm text-center w-full sm:w-auto" %>
         </div>
 
       </div>
     </div>
   <% end %>
-
 </div>

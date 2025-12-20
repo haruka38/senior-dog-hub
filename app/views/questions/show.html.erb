@@ -1,51 +1,78 @@
-<div class="justify-center items-center gap-y-8 p-10 mx-32 mt-7 bg-ivory text-brown">
-  <div class="flex justify-between items-center">
-    <div class="flex gap-x-6">
-      <p><%= @question.nickname %></p>
-      <p><%= @question.age %>歳</p>
-      <!-- &.で、question.breedがnilでない時のみnameを呼び出す -->
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-6 mt-6 bg-ivory text-brown rounded-xl">
+
+  <!-- ヘッダー情報 -->
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 text-sm">
+    <div class="flex flex-wrap gap-x-4 gap-y-1">
+      <p><%= @question.nickname.presence || "匿名さん" %></p>
+      <% if @question.age.present? %>
+        <p><%= @question.age %>歳</p>
+      <% end %>
       <p><%= @question.breed&.name %></p>
     </div>
-    <p><%= @question.created_at.strftime('%Y/%m/%d') %></p>
+
+    <p class="text-gray-500 text-xs sm:text-sm">
+      <%= @question.created_at.strftime('%Y/%m/%d') %>
+    </p>
   </div>
-  <p class="mt-6"><%= @question.body %></p>
-  <% @question.tags.each do |tag| %>
-    <li><%= tag.name %></li>
+
+  <!-- 本文 -->
+  <p class="mt-4 text-sm sm:text-base leading-relaxed">
+    <%= @question.body %>
+  </p>
+
+  <!-- タグ -->
+  <% if @question.tags.any? %>
+    <ul class="flex flex-wrap gap-2 mt-4">
+      <% @question.tags.each do |tag| %>
+        <li class="px-3 py-1 bg-white border rounded-full text-xs sm:text-sm">
+          <%= tag.name %>
+        </li>
+      <% end %>
+    </ul>
   <% end %>
 
-  <div class="flex justify-between items-center mt-6">
-    <!-- スタンプは左寄せ -->
-    <div class="flex items-center gap-4">
+  <!-- スタンプ・シェア -->
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mt-6">
+    <div class="flex flex-wrap items-center gap-3">
       <%= render "favorites/favorite_buttons", question: @question %>
-      <%= render partial: "stamps/stamp_buttons", locals: { stampable: @question, stamp_types: @question_stamp_types } %>
+      <%= render partial: "stamps/stamp_buttons",
+            locals: { stampable: @question, stamp_types: @question_stamp_types } %>
     </div>
 
-    <!-- Xシェアボタンは右寄せ -->
     <div>
       <% tweet_text = "#{@question.body.truncate(20)}...\n#シニア犬 #老犬くらぶ\n#{question_url(@question)}" %>
 
       <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode(tweet_text)}",
-                  target: "_blank", rel: "noopener",
-                  class: "inline-flex items-center px-4 py-2 bg-beige-200 text-gray-800 rounded-full shadow hover:opacity-80 transition" do %>
+            target: "_blank", rel: "noopener",
+            class: "inline-flex items-center px-4 py-2 bg-beige-200 text-gray-800 rounded-full shadow hover:opacity-80 transition text-sm" do %>
         <i class="fab fa-x-twitter mr-2"></i> でシェア
       <% end %>
     </div>
   </div>
 
+  <!-- 編集・削除 -->
   <% if @question.user == current_user %>
-    <div class="mt-4 flex gap-4">
-      <%= link_to "編集", edit_question_path(@question), class: "bg-blue-500 text-white px-4 py-2 rounded hover:opacity-80" %>
-      <%= link_to "削除", question_path(@question),
-                  data: { turbo_method: :delete , turbo_confirm: "本当に削除しますか？" },
-                  class: "bg-red-500 text-white px-4 py-2 rounded hover:opacity-80" %>
+    <div class="mt-6 flex gap-4">
+      <%= link_to "編集",
+            edit_question_path(@question),
+            class: "bg-blue-500 text-white px-4 py-2 rounded text-sm hover:opacity-80" %>
+
+      <%= link_to "削除",
+            question_path(@question),
+            data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+            class: "bg-red-500 text-white px-4 py-2 rounded text-sm hover:opacity-80" %>
     </div>
   <% end %>
 </div>
 
-<div class="justify-center items-center gap-y-8 p-4 mx-32 text-brown">
-  <%= render 'question_answers/form', question_answer: @question_answer, question: @question %>
-</div>
-<div class="justify-center items-center gap-y-8 py-8 mx-32 my-7 text-brown">
-  <%= render @question_answers %>
+<!-- 回答フォーム -->
+<div class="max-w-3xl mx-auto px-4 sm:px-6 mt-6 text-brown">
+  <%= render 'question_answers/form',
+        question_answer: @question_answer,
+        question: @question %>
 </div>
 
+<!-- 回答一覧 -->
+<div class="max-w-3xl mx-auto px-4 sm:px-6 py-8 text-brown">
+  <%= render @question_answers %>
+</div>

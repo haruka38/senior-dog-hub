@@ -1,30 +1,48 @@
-<div id="<%= dom_id(stampable, :stamps) %>" class="mt-4 flex gap-3">
+<div id="<%= dom_id(stampable, :stamps) %>" class="mt-4 flex gap-3 flex-wrap">
+
   <% stamp_counts = stampable.stamps.group(:stamp_type_id).count %>
-  <% user_stamp_ids = stampable.stamps.where(guest_id: cookies[:guest_id]).pluck(:stamp_type_id) %>
+
+  <% guest_id = cookies[:guest_id] %>
+  <% user_stamp_ids =
+      guest_id.present? ?
+        stampable.stamps.where(guest_id: guest_id).pluck(:stamp_type_id) :
+        [] %>
 
   <% stamp_types.each do |stamp_type| %>
     <% count = stamp_counts[stamp_type.id] || 0 %>
     <% user_pressed = user_stamp_ids.include?(stamp_type.id) %>
-    <% existing = stampable.stamps.find_by(stamp_type_id: stamp_type.id, guest_id: cookies[:guest_id]) %>
 
-    <% if user_pressed && existing %>
+    <% if user_pressed && guest_id.present? %>
+      <% existing = stampable.stamps.find_by(
+          stamp_type_id: stamp_type.id,
+          guest_id: guest_id
+        ) %>
+
       <%= form_with url: polymorphic_path([stampable, existing]),
-                    method: :delete,
-                    local: false,
-                    class: "text-sm px-3 py-1 rounded border flex items-center gap-1 bg-yellow-200 text-yellow-800" do %>
+            method: :delete,
+            local: false,
+            class: "text-sm px-3 py-1 rounded border flex items-center gap-1 bg-yellow-200 text-yellow-800" do %>
         <button type="submit">
-          <%= count %> <i class="<%= stamp_type.icon %>"></i> <%= stamp_type.name %>
+          <%= count %>
+          <i class="<%= stamp_type.icon %>"></i>
+          <%= stamp_type.name %>
         </button>
       <% end %>
+
     <% else %>
       <%= form_with scope: :stamp,
-                    url: polymorphic_path([stampable, :stamps]),
-                    method: :post,
-                    local: false,
-                    class: "inline" do |f| %>
+            url: polymorphic_path([stampable, :stamps]),
+            method: :post,
+            local: false,
+            class: "inline" do |f| %>
+
         <%= f.hidden_field :stamp_type_id, value: stamp_type.id %>
-        <button type="submit" class="text-sm px-3 py-1 rounded border flex items-center gap-1 bg-white text-gray-700 hover:bg-gray-100">
-          <%= count %> <i class="<%= stamp_type.icon %>"></i> <%= stamp_type.name %>
+
+        <button type="submit"
+          class="text-sm px-3 py-1 rounded border flex items-center gap-1 bg-white text-gray-700 hover:bg-gray-100">
+          <%= count %>
+          <i class="<%= stamp_type.icon %>"></i>
+          <%= stamp_type.name %>
         </button>
       <% end %>
     <% end %>

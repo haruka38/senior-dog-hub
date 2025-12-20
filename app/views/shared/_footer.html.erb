@@ -1,11 +1,26 @@
 <footer class="bg-[#F9F3AF]">
-  <div class="mx-auto px-4 pt-6 text-[#BA9174] font-kaisei_decol">
-    <%= link_to '老犬くらぶ', root_path %>
-  </div>
-  <div class="mx-auto px-4 py-6 text-[#BA9174]">
-    <nav class="flex items-center gap-x-6">
-      <%= link_to 'お問い合わせ',new_contact_path %>
-      <%= link_to 'プライバシーポリシー', "https://www.kiyac.app/privacypolicy/EHQONk1gIqdk7E8gGF0P", target: "_blank", rel: "noopener" %>
+  <div class="max-w-7xl mx-auto px-4 py-6 text-[#BA9174] ">
+
+    <!-- 上段：サイト名 -->
+    <div class="mb-4">
+      <%= link_to '老犬くらぶ', root_path, class: "text-base sm:text-lg font-bold font-kaisei_decol" %>
+    </div>
+
+    <!-- 下段：ナビ（常に横並び） -->
+    <nav class="
+      flex flex-row
+      items-center
+      gap-4 sm:gap-6
+      flex-wrap
+      text-sm sm:text-base
+    ">
+      <%= link_to 'お問い合わせ', new_contact_path, class: "hover:underline whitespace-nowrap" %>
+      <%= link_to 'プライバシーポリシー',
+            "https://www.kiyac.app/privacypolicy/EHQONk1gIqdk7E8gGF0P",
+            target: "_blank",
+            rel: "noopener",
+            class: "hover:underline whitespace-nowrap" %>
     </nav>
+
   </div>
 </footer>
