@@ -1,28 +1,55 @@
 <div>
-  <h1 class="mx-auto pt-10 pb-10 text-7xl text-brown text-center font-kaisei_decol">老犬くらぶ</h1>
+  <h1 class="mx-auto pt-8 pb-6
+  text-4xl sm:text-5xl md:text-6xl
+  text-brown text-center font-kaisei_decol">
+  老犬くらぶ
+  </h1>
 
-  <div class="my-10 mx-20">
-    <p class="text-lg text-brown text-center">シニア犬と暮らす飼い主さんが、気軽に悩みを相談できるサービスです。<br>質問を投稿すると、他の飼い主さんからアドバイスがもらえます。</p>
+  <div class="my-8 mx-4 sm:mx-8 md:mx-20">
+  <p class="text-base sm:text-lg text-brown text-center leading-relaxed">シニア犬と暮らす飼い主さんが、気軽に悩みを相談できるサービスです。<br>質問を投稿すると、他の飼い主さんからアドバイスがもらえます。</p>
     <!-- <br>ユーザー登録すると、質問をお気に入り登録できるほか、ペットのプロフィールや動物病院の情報も登録できるので、いざという時も安心です。-->
   </div>
 
   <!-- gap-8で横並びの要素同士の隙間(gap)を8に設定 -->
-  <div class="flex justify-center items-center gap-8 py-5 my-3">
-    <div>
-      <%=link_to 'つかいかた' ,"", class: "py-5 px-8 text-[#F2DEBF] text-lg rounded-xl border border-[#F2DEBF] hover:bg-[#F2DEBF] hover:text-[#3C2E1E] shadow-sm hover:shadow-md transition-all duration-200" %>
+  <div class="flex justify-center items-center py-4 my-3">
+    <%= link_to 'つかいかた', "",
+        class: "w-full sm:w-auto
+                py-4 px-8
+                text-[#F2DEBF] text-base sm:text-lg
+                rounded-xl border border-[#F2DEBF]
+                hover:bg-[#F2DEBF] hover:text-[#3C2E1E]
+                shadow-sm hover:shadow-md transition-all duration-200 text-center" %>
     </div>
-  </div>
     <!-- ↑をコピーしてログインとユーザー登録ボタンを作る -->
-  <div class="flex justify-center items-center gap-8 py-5 my-3">
-    <div>
-    <%= link_to '匿名ではじめる', questions_path,
-    class: "py-5 px-8 bg-[#F2DEBF] text-white text-lg rounded-xl border border-[#F2DEBF] hover:bg-transparent hover:text-[#F2DEBF] shadow-sm hover:shadow-md transition-all duration-200" %>
-    </div>
-    <div>
-      <%=link_to 'ログイン' ,new_user_session_path, class: "py-5 px-8 bg-[#F2DEBF] text-white text-lg rounded-xl border border-[#F2DEBF] hover:bg-transparent hover:text-[#F2DEBF] shadow-sm hover:shadow-md transition-all duration-200" %>
-    </div>
-    <div>
-      <%=link_to '新規登録' ,new_user_registration_path, class: "py-5 px-8 bg-[#F2DEBF] text-white text-lg rounded-xl border border-[#F2DEBF] hover:bg-transparent hover:text-[#F2DEBF] shadow-sm hover:shadow-md transition-all duration-200" %>
+    <div class="flex flex-col sm:flex-row
+            justify-center items-center
+            gap-4 sm:gap-8
+            py-5 my-3
+            w-full">
+
+      <%= link_to '匿名ではじめる', questions_path,
+        class: "w-full sm:w-auto
+                py-4 px-8
+                bg-[#F2DEBF] text-white text-base sm:text-lg
+                rounded-xl border border-[#F2DEBF]
+                hover:bg-transparent hover:text-[#F2DEBF]
+                shadow-sm hover:shadow-md transition-all duration-200 text-center" %>
+
+      <%=link_to 'ログイン' ,new_user_session_path,
+        class: "w-full sm:w-auto
+              py-4 px-8
+              bg-[#F2DEBF] text-white text-base sm:text-lg
+              rounded-xl border border-[#F2DEBF]
+              hover:bg-transparent hover:text-[#F2DEBF]
+              shadow-sm hover:shadow-md transition-all duration-200 text-center" %>
+
+      <%=link_to '新規登録' ,new_user_registration_path,
+        class: "w-full sm:w-auto
+              py-4 px-8
+              bg-[#F2DEBF] text-white text-base sm:text-lg
+              rounded-xl border border-[#F2DEBF]
+              hover:bg-transparent hover:text-[#F2DEBF]
+              shadow-sm hover:shadow-md transition-all duration-200 text-center" %>
     </div>
   </div>
 </div>

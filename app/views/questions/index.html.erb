@@ -1,70 +1,100 @@
 <div>
-  <div>
-    <%= link_to '質問する' , new_question_path, class: "py-8 px-12 bg-green text-light-brown text-2xl font-bold rounded-xl fixed bottom-8 right-8 shadow-lg z-50" %>
-  </div>
+  <!-- 質問するボタン -->
+  <%= link_to '質問する',
+    new_question_path,
+    class: "
+      fixed bottom-6 right-4 sm:right-8
+      py-4 px-6 sm:py-6 sm:px-10
+      bg-green text-light-brown
+      text-base sm:text-xl font-bold
+      rounded-xl shadow-lg z-50
+    " %>
 
+  <!-- 検索フォーム -->
   <%= turbo_frame_tag "search_form" do %>
-    <%# ransackを利用した検索フォームでは、form_withの代わりにsearch_form_forを使う %>
-    <%# local:falseで非同期リクエストになる。デフォルトのtrueではページ全体がリロードされる %>
-    <%= search_form_for @search, url: questions_path, data: { turbo_method: :get }, data: { turbo_frame: "questions" }, local: false do |f| %>
-      <div class="flex justify-center mt-4">
-        <div class="flex gap-3 items-center flex-wrap">
+    <%= search_form_for @search,
+          url: questions_path,
+          data: { turbo_method: :get, turbo_frame: "questions" },
+          local: false do |f| %>
 
-          <%# `カラム名_cont`とすることで、カラムに対してLIKEを使った曖昧一致検索ができる %>
+      <div class="flex justify-center mt-4 px-4">
+        <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center w-full sm:w-auto">
+
           <%= f.search_field :body_cont,
             placeholder: "ワード",
-            class: "border border-beige rounded-md p-2" %>
+            class: "border border-beige rounded-md p-2 w-full sm:w-40" %>
 
-          <%# `カラム名_eq`とすることで、カラムに対して完全一致検索ができる %>
-          <%# 犬種にしたい %>
           <%= f.collection_select :breed_id_eq,
-          Breed.all, :id, :name,
-          { prompt: "犬種" },
-          { class: "border border-beige rounded-md p-2 w-40 bg-white text-gray-400",
-          onchange: "this.classList.remove('text-gray-400')" } %>
+            Breed.all, :id, :name,
+            { prompt: "犬種" },
+            class: "border border-beige rounded-md p-2 w-full sm:w-40 bg-white text-gray-400",
+            onchange: "this.classList.remove('text-gray-400')" %>
 
           <%= f.collection_select :tags_id_eq,
-          Tag.all, :id, :name,
-          { prompt: "タグ" },
-          { class: "border border-beige rounded-md p-2 w-40 bg-white text-gray-400",
-          onchange: "this.classList.remove('text-gray-400')" } %>
-          <%= f.submit "検索",
-          class: "bg-light-brown text-white px-4 py-2 rounded-md" %>
+            Tag.all, :id, :name,
+            { prompt: "タグ" },
+            class: "border border-beige rounded-md p-2 w-full sm:w-40 bg-white text-gray-400",
+            onchange: "this.classList.remove('text-gray-400')" %>
 
-          <%# 検索結果と検索フォームをクリアする %>
-          <%# _topは画面全体を更新するturbo_frameの予約語 %>
+          <%= f.submit "検索",
+            class: "bg-light-brown text-white px-4 py-2 rounded-md w-full sm:w-auto" %>
+
           <%= link_to "クリア", questions_path,
-          data: { turbo_frame: "_top" },
-          class: "text-blue-600 underline" %>
+            data: { turbo_frame: "_top" },
+            class: "text-blue-600 underline text-center sm:text-left" %>
         </div>
       </div>
+
     <% end %>
   <% end %>
 
+  <!-- 質問一覧 -->
   <%= turbo_frame_tag "questions" do %>
-  <div>
-    <% @questions.each do |question| %>
-      <div class="justify-center items-center gap-y-8 p-10 mx-32 my-7 bg-ivory text-brown border-2 border-transparent hover:border-brown hover:shadow rounded-xl transition">
-        <%= link_to question_path(question), class: "block", data: { turbo_frame: "_top" } do %>
-          <div class="flex justify-between items-center">
-            <div class="flex gap-x-6">
-              <!-- presence || 値があればそれを返し、なければ右側のものを返す -->
-              <p><%= question.nickname.presence|| "匿名さん" %></p>
-              <!-- 0に意味を持つならpresenceではなくnilがいいらしい -->
-              <p><%= question.age.nil? ? "" : "#{question.age}歳" %></p>
-              <p><%= question.breed&.name %></p>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 my-6">
+
+      <% @questions.each do |question| %>
+        <div class="
+          bg-ivory text-brown
+          border-2 border-transparent
+          hover:border-brown hover:shadow
+          rounded-xl transition
+          px-4 py-4 sm:px-6 sm:py-6
+          mb-6
+        ">
+
+          <%= link_to question_path(question),
+                class: "block",
+                data: { turbo_frame: "_top" } do %>
+
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-2 text-sm">
+              <div class="flex flex-wrap gap-x-4 gap-y-1">
+                <p><%= question.nickname.presence || "匿名さん" %></p>
+                <p><%= question.age.present? ? "#{question.age}歳" : "" %></p>
+                <p><%= question.breed&.name %></p>
+              </div>
+
+              <p class="text-gray-500 text-xs sm:text-sm">
+                <%= question.created_at.strftime('%Y/%m/%d') %>
+              </p>
             </div>
-            <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
+
+            <p class="mt-3 text-sm sm:text-base leading-relaxed">
+              <%= question.body %>
+            </p>
+          <% end %>
+
+          <!-- スタンプ -->
+          <div id="stamps_<%= question.id %>" class="mt-3">
+            <%= render "stamps/stamp_buttons",
+                  stampable: question,
+                  stamp_types: @question_stamp_types %>
           </div>
-          <p class="mt-2"><%= question.body %></p>
-        <% end %>
-        
-        <div id="stamps_<%= "#{question.id}" %>" >
-          <%= render partial: "stamps/stamp_buttons", locals: { stampable: question, stamp_types: @question_stamp_types } %>
         </div>
+      <% end %>
+
+      <div class="flex justify-center my-8">
+        <%= paginate @questions %>
       </div>
-    <% end %>
-  </div>
-  <%= paginate @questions %>
+    </div>
   <% end %>
 </div>

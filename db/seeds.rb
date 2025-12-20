@@ -12,6 +12,7 @@
 
 load Rails.root.join("db/seeds/breeds.rb")
 load Rails.root.join("db/seeds/tags.rb")
+load Rails.root.join("db/seeds/stamp_types.rb")
 
 if Rails.env.development?
   load Rails.root.join("db/seeds/development.rb")

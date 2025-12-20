@@ -1,29 +1,60 @@
-<h1>自分の質問一覧</h1>
+<div class="max-w-3xl mx-auto px-4 sm:px-6 my-6 text-brown">
 
-<% if @questions.any? %>
-  <% @questions.each do |question| %>
-    <div class="question-card">
+  <h1 class="text-xl sm:text-2xl font-bold mb-6 text-center sm:text-left">
+    自分の質問一覧
+  </h1>
+
+  <% if @questions.any? %>
     <% @questions.each do |question| %>
-      <div class="justify-center items-center gap-y-8 p-10 mx-32 my-7 bg-ivory text-brown border-2 border-transparent hover:border-brown hover:shadow rounded-xl transition">
-        <%= link_to question_path(question), class: "block" do %>
-          <div class="flex justify-between items-center">
-            <div class="flex gap-x-6">
-              <!-- presence || 値があればそれを返し、なければ右側のものを返す -->
-              <p><%= question.nickname.presence|| "匿名さん" %></p>
-              <!-- 0に意味を持つならpresenceではなくnilがいいらしい -->
-              <p><%= question.age.nil? ? "" : "#{question.age}歳" %></p>
+
+      <div class="
+        bg-ivory
+        border-2 border-transparent
+        hover:border-brown hover:shadow
+        rounded-xl transition
+        px-4 py-4 sm:px-6 sm:py-6
+        mb-6
+      ">
+
+        <%= link_to question_path(question),
+              class: "block",
+              data: { turbo_frame: "_top" } do %>
+
+          <!-- 上段：ユーザー情報 -->
+          <div class="flex flex-col sm:flex-row sm:justify-between gap-2 text-sm">
+            <div class="flex flex-wrap gap-x-4 gap-y-1">
+              <p><%= question.nickname.presence || "匿名さん" %></p>
+              <p><%= question.age.present? ? "#{question.age}歳" : "" %></p>
               <p><%= question.breed&.name %></p>
             </div>
-            <p><%= question.created_at.strftime('%Y/%m/%d') %></p>
+
+            <p class="text-gray-500 text-xs sm:text-sm">
+              <%= question.created_at.strftime('%Y/%m/%d') %>
+            </p>
           </div>
-          <p class="mt-2"><%= question.body %></p>
+
+          <!-- 本文 -->
+          <p class="mt-3 text-sm sm:text-base leading-relaxed">
+            <%= question.body %>
+          </p>
         <% end %>
-        <div id="stamps_<%= "#{question.id}" %>" >
-          <%= render partial: "stamps/stamp_buttons", locals: { stampable: question, stamp_types: @question_stamp_types } %>
+
+        <!-- スタンプ -->
+        <div id="stamps_<%= question.id %>" class="mt-3">
+          <%= render partial: "stamps/stamp_buttons",
+                locals: {
+                  stampable: question,
+                  stamp_types: @question_stamp_types
+                } %>
         </div>
+
       </div>
+
     <% end %>
+
+  <% else %>
+    <p class="text-center text-gray-500 mt-10">
+      まだ質問はありません。
+    </p>
   <% end %>
-<% else %>
-  <p>まだ質問はありません。</p>
-<% end %>
+</div>
