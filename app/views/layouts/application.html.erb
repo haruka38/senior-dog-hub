@@ -10,7 +10,7 @@
 
     <%= yield :head %>
 
-    <link rel="manifest" href="/manifest.json">
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -22,7 +22,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-  
+
       gtag('config', 'G-285R324VMQ');
     </script>
   </head>
