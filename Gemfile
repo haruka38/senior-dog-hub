@@ -67,3 +67,7 @@ gem "ransack"
 gem "kaminari"
 gem "rails-i18n"
 gem "config"
+gem "importmap-rails"
+# 複数のコマンドを同時に実行するためのgem (bin/devで利用)
+gem "foreman"
+gem "ruby-openai"
