@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     # collectionはid不要、memberはidつき
     collection do
       get :my_questions
+      post :similar
     end
     resource :favorite, only: %i[create destroy]
   end

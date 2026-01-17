@@ -1,0 +1,14 @@
+<% return if questions.blank? %>
+
+<div id="similar_questions" class="bg-yellow-50 border rounded p-4 mb-4">
+  <p class="font-bold mb-2">もしかしてこちらの質問ですか？</p>
+  <ul class="space-y-2">
+    <% questions.each do |q| %>
+      <li>
+        <%= link_to q.body.truncate(40), question_path(q),
+              data: { turbo_frame: "_top" },
+              class: "text-blue-600 underline" %>
+      </li>
+    <% end %>
+  </ul>
+</div>

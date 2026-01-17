@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_14_030635) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_13_103906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "vector"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -106,6 +107,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_14_030635) do
     t.bigint "breed_id"
     t.bigint "user_id"
     t.string "guest_id"
+    t.vector "embedding", limit: 1536
     t.index ["breed_id"], name: "index_questions_on_breed_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
