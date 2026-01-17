@@ -13,6 +13,21 @@ class QuestionsController < ApplicationController
     @search.sorts = "updated_at desc" if @search.sorts.empty?
     @questions = @search.result.includes(:tags).page(params[:page])
     # user等と紐づける時はinclideにした方がいいかも
+    @similar_questions = []
+
+    if params.dig(:q, :body_cont).present?
+      query = params[:q][:body_cont]
+
+      embedding = EmbeddingService.generate_embedding(query)
+
+      if embedding
+        @similar_questions = Question
+          .where.not(embedding: nil)
+          .nearest_neighbors(:embedding, embedding, distance: "cosine")
+          .limit(5)
+
+      end
+    end
   end
 
   def new

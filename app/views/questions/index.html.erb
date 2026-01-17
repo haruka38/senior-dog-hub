@@ -50,6 +50,28 @@
 
   <!-- 質問一覧 -->
   <%= turbo_frame_tag "questions" do %>
+
+    <% if params.dig(:q, :body_cont).present? %>
+      <div class="bg-red-50 p-2 text-sm max-w-3xl mx-auto mt-2">
+        類似検索 件数: <%= @similar_questions.size %>
+      </div>
+    <% end %>
+
+    <% if @similar_questions.present? %>
+      <div class="bg-yellow-50 border rounded p-4 mb-6 max-w-3xl mx-auto">
+        <p class="font-bold mb-2">もしかして、こちらの質問ですか？</p>
+        <ul class="space-y-2">
+          <% @similar_questions.each do |q| %>
+            <li>
+              <%= link_to q.body.truncate(40), question_path(q),
+                    data: { turbo_frame: "_top" },
+                    class: "text-blue-600 underline" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="max-w-3xl mx-auto px-4 sm:px-6 my-6">
 
       <% @questions.each do |question| %>
